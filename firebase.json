@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "public",
+    "public": "dist/SMS-FE",
     "ignore": [
       "firebase.json",
       "**/.*",
