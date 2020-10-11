@@ -23,9 +23,12 @@ jobs:
       - uses: actions/setup-node@main
         with:
           node-version: '10.x'
-      - run: npm install
-      - run: npm run build:prod
-      - uses: w9jds/firebase-action@master
+      - name: Install Dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Deploy
+        uses: w9jds/firebase-action@master
         with:
           args: deploy --only hosting
         env:
