@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Account } from '../model/account.model';
-
-const baseUrl = 'https://sms-be.herokuapp.com/';
-// const baseUrl = 'http://localhost:5000/';
+import { environment } from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -15,7 +13,7 @@ export class AuthenticationService {
     ) {}
 
     authenticate() {
-        return this.httpClient.get<Account>(`${baseUrl}/account/admin`)
+        return this.httpClient.get<Account>(`${environment.baseUrl}/account/admin`)
             .toPromise()
             .then( res => res)
             .catch(err => {
