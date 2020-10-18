@@ -28,6 +28,10 @@ export class LoginAdminComponent implements OnInit {
   }
 
   onLogin() {
+    if (this.loginForm.invalid) {
+      this.isShowError = true;
+      return; 
+    }
     this.loginService.authenticate(this.loginForm.controls.username.value, this.loginForm.controls.password.value)
       .then(res => {
           let role = this.loginService.extractUserRole(res.roles);
