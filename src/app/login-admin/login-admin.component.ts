@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { AuthenticationService } from '../service/authentication.service';
 
@@ -15,7 +16,8 @@ export class LoginAdminComponent implements OnInit {
 
   constructor   (
     private loginService: AuthenticationService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ){}
 
   ngOnInit() {
@@ -29,7 +31,11 @@ export class LoginAdminComponent implements OnInit {
     this.loginService.authenticate(this.loginForm.controls.username.value, this.loginForm.controls.password.value)
       .then(res => {
           let role = this.loginService.extractUserRole(res.roles);
-          alert(role);
+          if (role) {
+            this.router.navigateByUrl('/');
+          } else {
+            this.isShowError = true;
+          }
       }).catch(err => {
         if (err.status) {
           this.isShowError = true;

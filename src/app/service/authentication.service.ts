@@ -47,6 +47,8 @@ export class AuthenticationService {
             return environment.ROLE_CASHIER
         } else if (roles.includes(environment.ROLE_STYLIST)) {
             return environment.ROLE_STYLIST
+        } else {
+            return "";
         }
     }
 
