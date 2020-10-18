@@ -1,27 +1,38 @@
-//Module
+//Modules
+import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { AppRoutingModule } from './app-routing.module';
-import {HttpClientModule} from '@angular/common/http';
 
-//Component
+//Services
+import { AuthenticationService } from './service/authentication.service';
+import { BasicAuthHttpInterceptorService } from './service/basic-auth-http-interceptor.service';
+import { AuthGuardService } from './service/auth-guard.service';
+
+//Components
 import { AppComponent } from './app.component';
 import { LoginAdminComponent } from './login-admin/login-admin.component';
-
-//Service
-import { AuthenticationService } from './service/authentication.service';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginAdminComponent
+    LoginAdminComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [AuthenticationService],
+  providers: [
+    AuthenticationService, 
+    BasicAuthHttpInterceptorService,
+    AuthGuardService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
