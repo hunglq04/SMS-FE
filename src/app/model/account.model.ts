@@ -1,7 +1,6 @@
 export class Account {
-    constructor (
-        public accountId: number,
-        public username: string,
-        public password: string,
+    constructor(
+        public token: string,
+        public roles: Array<string>
     ) {}
 }

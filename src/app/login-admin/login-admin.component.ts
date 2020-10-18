@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Account } from '../model/account.model';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { environment } from 'src/environments/environment';
 import { AuthenticationService } from '../service/authentication.service';
 
 @Component({
@@ -9,15 +10,31 @@ import { AuthenticationService } from '../service/authentication.service';
 })
 export class LoginAdminComponent implements OnInit {
 
-  account: Account;
+  loginForm: FormGroup;
+  isShowError = false;
 
-  constructor(
-    private authenticationService: AuthenticationService
-  ) { }
+  constructor   (
+    private loginService: AuthenticationService,
+    private fb: FormBuilder
+  ){}
 
-  ngOnInit(): void {
-    this.authenticationService.authenticate()
-      .then(res => console.log(res))
+  ngOnInit() {
+    this.loginForm = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+  }
+
+  onLogin() {
+    this.loginService.authenticate(this.loginForm.controls.username.value, this.loginForm.controls.password.value)
+      .then(res => {
+          let role = this.loginService.extractUserRole(res.roles);
+          alert(role);
+      }).catch(err => {
+        if (err.status) {
+          this.isShowError = true;
+        }
+      })
   }
 
 }
