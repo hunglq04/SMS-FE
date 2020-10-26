@@ -15,7 +15,9 @@ export class SalonsComponent implements OnInit {
   ngOnInit(): void {
   }
   openDialog() {
-    const dialogRef = this.dialog.open(DialogNewSalonComponent);
+    const dialogRef = this.dialog.open(DialogNewSalonComponent, {
+      width: '500px'
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);

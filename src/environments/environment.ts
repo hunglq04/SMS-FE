@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   baseUrl: 'http://localhost:5000/api',
+  internalApiUrl: 'http://localhost:5000/api/internal',
   ROLE_ADMIN: 'ROLE_ADMIN',
   ROLE_MANAGER: 'ROLE_MANAGER',
   ROLE_CASHIER: 'ROLE_CASHIER',

@@ -9,14 +9,15 @@ import { OverlayModule } from '@angular/cdk/overlay';
 
 //Services
 import { AuthenticationService } from './service/authentication.service';
-import { BasicAuthHttpInterceptorService } from './service/basic-auth-http-interceptor.service';
 import { AuthGuardService } from './service/auth-guard.service';
 import { LoadingService } from './loading/loading.service';
 import { LoadingInterceptor } from './loading/loading.interceptor';
+import { AddressService } from './service/address.service';
 
 
 //Material components
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatAutocompleteModule} from '@angular/material/autocomplete'; 
 
 //Components
 import { AppComponent } from './app.component';
@@ -49,18 +50,15 @@ import { DialogNewSalonComponent } from './dialogs/dialog-new-salon/dialog-new-s
     ReactiveFormsModule,
     BrowserAnimationsModule,
     OverlayModule,
-    MatDialogModule
+    MatDialogModule,
+    MatAutocompleteModule
   ],
   providers: [
     AuthenticationService, 
-    BasicAuthHttpInterceptorService,
     AuthGuardService,
     LoadingService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: LoadingInterceptor,
-      multi: true
-    }
+    AddressService,
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })
