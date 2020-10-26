@@ -36,7 +36,7 @@ export class LoginAdminComponent implements OnInit {
       .then(res => {
           let role = this.loginService.extractUserRole(res.roles);
           if (role) {
-            this.router.navigateByUrl('/');
+            this.router.navigateByUrl('/dashboard');
           } else {
             this.isShowError = true;
           }

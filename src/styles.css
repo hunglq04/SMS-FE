@@ -23,11 +23,6 @@ html, body {
     background-color: #f1f3f4;
 }
 
-a {
-    cursor: pointer;
-    color: #17a2b8 !important;
-}
-
 .btn-dark {
 	padding: 0 25px !important;
 	border-radius: 5px;

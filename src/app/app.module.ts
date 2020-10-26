@@ -14,14 +14,20 @@ import { AuthGuardService } from './service/auth-guard.service';
 import { LoadingService } from './loading/loading.service';
 import { LoadingInterceptor } from './loading/loading.interceptor';
 
+
+//Material components
+import {MatDialogModule} from '@angular/material/dialog';
+
 //Components
 import { AppComponent } from './app.component';
 import { LoginAdminComponent } from './login-admin/login-admin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoadingComponent } from './loading/loading.component';
-
-//Material components
-import { MatSliderModule } from '@angular/material/slider';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { SalonsComponent } from './salons/salons.component';
+import { SalonDetailComponent } from './salon-detail/salon-detail.component';
+import { DialogNewSalonComponent } from './dialogs/dialog-new-salon/dialog-new-salon.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +35,11 @@ import { MatSliderModule } from '@angular/material/slider';
     LoginAdminComponent,
     DashboardComponent,
     LoadingComponent,
+    SidebarComponent,
+    NavbarComponent,
+    SalonsComponent,
+    SalonDetailComponent,
+    DialogNewSalonComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,7 +49,7 @@ import { MatSliderModule } from '@angular/material/slider';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     OverlayModule,
-    MatSliderModule
+    MatDialogModule
   ],
   providers: [
     AuthenticationService, 
