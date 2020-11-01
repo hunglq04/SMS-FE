@@ -19,7 +19,7 @@ export class AddressService {
   }
 
   getDistrictsAndWards(provinceId) {
-    return this.httpClient.get<District>(`${environment.baseUrl}/provinces/${provinceId}/districts`)
+    return this.httpClient.get<Array<District>>(`${environment.baseUrl}/provinces/${provinceId}/districts`)
               .toPromise();
   }
 }

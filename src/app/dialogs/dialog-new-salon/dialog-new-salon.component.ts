@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { District } from 'src/app/model/district.model';
 import { Province } from 'src/app/model/province.model';
 import { AddressService } from 'src/app/service/address.service';
 
@@ -12,46 +13,94 @@ import { AddressService } from 'src/app/service/address.service';
 })
 export class DialogNewSalonComponent implements OnInit {
 
-  myControl = new FormControl();
+  salonForm: FormGroup;
   provinces: Array<Province>;
+  districts: Array<District>;
+  wards: Array<string>;
   filteredProvinces: Observable<Array<Province>>;
+  filteredDistricts: Observable<Array<District>>;
+  filteredWards: Observable<string[]>;
 
   constructor(
-    private addressService: AddressService
+    private addressService: AddressService,
+    private fb: FormBuilder
   ) { }
 
-  async ngOnInit() {
-    await this.getProvinces();
-    this.filteredProvinces = this.myControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => typeof value === 'string' ? value : value.name),
-        map(name => name ? this._filter(name) : this.provinces.slice())
-      );
+  ngOnInit() {
+    this.initSalonForm();
+    this.getProvinces();
   }
 
-  displayFn(province: Province): string {
-    return province && province.name ? province.name : '';
+  initSalonForm() {
+    this.salonForm = this.fb.group({
+      manager: ['', Validators.required],
+      image: ['', Validators.required],
+      province: ['', Validators.required],
+      district: ['', Validators.required],
+      ward: ['', Validators.required],
+      street: ['', Validators.required]
+    });
   }
 
-  private _filter(name: string): Province[] {
+  displayFn(option: any): string {
+    return option && option.name ? option.name : '';
+  }
+
+  filterProvince(name: string): Province[] {
     const filterValue = name.toLowerCase();
+    return this.provinces.filter(option => option.name.toLowerCase().includes(filterValue));
+  }
 
-    return this.provinces.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
+  filterDistricts(name: string): District[] {
+    const filterValue = name.toLowerCase();
+    return this.districts.filter(option => option.name.toLowerCase().includes(filterValue));
+  }
+
+  filterWard(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.wards.filter(option => option.toLowerCase().includes(filterValue));
   }
 
   getProvinces() {
     return this.addressService.getProvince()
       .then(res => {
         this.provinces = res;
+        this.filteredProvinces = this.salonForm.controls['province'].valueChanges
+          .pipe(
+            startWith(''),
+            map(value => typeof value === 'string' ? value : value.name),
+            map(name => name ? this.filterProvince(name) : this.provinces.slice())
+          );
       })
   }
 
   getDistrictsAndWards(provinceId) {
+    this.salonForm.controls['district'].setValue('');
+    this.salonForm.controls['ward'].setValue('');
     this.addressService.getDistrictsAndWards(provinceId)
       .then(res => {
-        alert(JSON.stringify(res))
+        this.districts = res;
+        this.filteredDistricts = this.salonForm.controls['district'].valueChanges
+          .pipe(
+            startWith(''),
+            map(value => typeof value === 'string' ? value : value.name),
+            map(name => name ? this.filterDistricts(name) : this.districts.slice())
+          );
       })
+  }
+
+  onDistrictChange(districtId) {
+    this.salonForm.controls['ward'].setValue('');
+    this.wards = this.districts.find(district => district.id == districtId).wards;
+    this.filteredWards = this.salonForm.controls['ward'].valueChanges.pipe(
+      startWith(''),
+      map(value => this.filterWard(value))
+    );
+  }
+
+  getImageUrl(imageUrl) {
+    this.salonForm.get('image').setValue(imageUrl);
+    console.log(this.salonForm.value);
   }
 
 }
