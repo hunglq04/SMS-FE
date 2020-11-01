@@ -3,8 +3,13 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { District } from 'src/app/model/district.model';
+import { ManagerInfo } from 'src/app/model/manager-info.model';
 import { Province } from 'src/app/model/province.model';
+import { NewSalon } from 'src/app/model/new-salon.model';
 import { AddressService } from 'src/app/service/address.service';
+import { EmployeeService } from 'src/app/service/employee.service';
+import { SalonService } from 'src/app/service/salon.service';
+import { StorageService } from 'src/app/service/storage.service';
 
 @Component({
   selector: 'app-dialog-new-salon',
@@ -17,17 +22,24 @@ export class DialogNewSalonComponent implements OnInit {
   provinces: Array<Province>;
   districts: Array<District>;
   wards: Array<string>;
+  managers: Array<ManagerInfo>;
+  filteredManagers: Observable<Array<ManagerInfo>>;
   filteredProvinces: Observable<Array<Province>>;
   filteredDistricts: Observable<Array<District>>;
   filteredWards: Observable<string[]>;
+  errorMessage = '';
 
   constructor(
     private addressService: AddressService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private storageService: StorageService,
+    private employeeService: EmployeeService,
+    private salonService: SalonService,
   ) { }
 
   ngOnInit() {
     this.initSalonForm();
+    this.getManagers();
     this.getProvinces();
   }
 
@@ -46,6 +58,11 @@ export class DialogNewSalonComponent implements OnInit {
     return option && option.name ? option.name : '';
   }
 
+  filterManagers(name: string): ManagerInfo[] {
+    const filterValue = name.toLowerCase();
+    return this.managers.filter(option => option.name.toLowerCase().includes(filterValue));
+  }
+
   filterProvince(name: string): Province[] {
     const filterValue = name.toLowerCase();
     return this.provinces.filter(option => option.name.toLowerCase().includes(filterValue));
@@ -61,8 +78,21 @@ export class DialogNewSalonComponent implements OnInit {
     return this.wards.filter(option => option.toLowerCase().includes(filterValue));
   }
 
+  getManagers() {
+    this.employeeService.getAllManagerInfos()
+      .then(res => {
+        this.managers = res;
+        this.filteredManagers = this.salonForm.controls['manager'].valueChanges
+        .pipe(
+          startWith(''),
+          map(value => typeof value === 'string' ? value : value.name),
+          map(name => name ? this.filterManagers(name) : this.managers.slice())
+        );
+    })
+  }
+
   getProvinces() {
-    return this.addressService.getProvince()
+    this.addressService.getProvince()
       .then(res => {
         this.provinces = res;
         this.filteredProvinces = this.salonForm.controls['province'].valueChanges
@@ -100,7 +130,29 @@ export class DialogNewSalonComponent implements OnInit {
 
   getImageUrl(imageUrl) {
     this.salonForm.get('image').setValue(imageUrl);
-    console.log(this.salonForm.value);
+  }
+
+  removeImage() {
+    let imageUrl = this.salonForm.get('image').value;
+    if (imageUrl) {
+      this.storageService.delete(imageUrl);
+    }
+  }
+
+  saveSalon() {
+    if (!this.errorMessage) {
+      let salon = new NewSalon(
+        this.salonForm.get('manager').value['id'],
+        this.salonForm.get('province').value['id'],
+        this.salonForm.get('district').value['id'],
+        this.salonForm.get('ward').value,
+        this.salonForm.get('street').value,
+        this.salonForm.get('image').value
+      )
+      this.salonService.addNewSalon(salon)
+      .then(() => alert('ngon'))
+      .catch(err => alert(JSON.stringify(err)))
+    }
   }
 
 }

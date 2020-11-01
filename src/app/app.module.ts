@@ -16,6 +16,8 @@ import { LoadingInterceptor } from './loading/loading.interceptor';
 import { AddressService } from './service/address.service';
 import { UtilsService } from './service/utils.service';
 import { StorageService } from './service/storage.service';
+import { EmployeeService } from './service/employee.service';
+import { SalonService } from './service/salon.service';
 
 //Material components
 import {MatDialogModule} from '@angular/material/dialog';
@@ -79,6 +81,8 @@ import { UploadImageComponent } from './upload-image/upload-image.component';
     AddressService,
     UtilsService,
     StorageService,
+    EmployeeService,
+    SalonService,
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]

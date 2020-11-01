@@ -21,6 +21,7 @@ export class UploadImageComponent implements OnInit, OnDestroy {
   pictureForm: FormGroup;
   submitted = false;
   uploadProgress$: Observable<number>;
+  toDeleteUrl = '';
 
   @Input() imagePreview: string | ArrayBuffer;
   @Output() imageUrl = new EventEmitter();
@@ -34,10 +35,8 @@ export class UploadImageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.pictureForm = this.formBuilder.group({
-      photo: [null, [Validators.required, this.image.bind(this)]],
-      description: [null, Validators.required],
+      photo: [null, [this.image.bind(this)]]
     });
-    // this.authService.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => (this.user = user));
 
     this.pictureForm
       .get('photo')
@@ -56,6 +55,16 @@ export class UploadImageComponent implements OnInit, OnDestroy {
 
   postImage() {
     this.submitted = true;
+
+    if (this.toDeleteUrl) {
+      this.storageService.delete(this.toDeleteUrl);
+    }
+
+    if (this.pictureForm.get('photo').invalid) {
+      this.submitted = false;
+      this.imagePreview = '';
+      return;
+    }
 
     const { downloadUrl$, uploadProgress$ } = this.storageService.uploadFileAndGetMetadata(
       MEDIA_STORAGE_PATH,
@@ -76,6 +85,7 @@ export class UploadImageComponent implements OnInit, OnDestroy {
       )
       .subscribe((downloadUrl) => {
         this.submitted = false;
+        this.toDeleteUrl = downloadUrl;
         this.imageUrl.emit(downloadUrl)
       });
   }
