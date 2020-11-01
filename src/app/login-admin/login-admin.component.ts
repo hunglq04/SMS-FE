@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
 import { AuthenticationService } from '../service/authentication.service';
 
 @Component({
@@ -16,8 +14,7 @@ export class LoginAdminComponent implements OnInit {
 
   constructor   (
     private loginService: AuthenticationService,
-    private fb: FormBuilder,
-    private router: Router
+    private fb: FormBuilder
   ){}
 
   ngOnInit() {
@@ -36,7 +33,7 @@ export class LoginAdminComponent implements OnInit {
       .then(res => {
           let role = this.loginService.extractUserRole(res.roles);
           if (role) {
-            this.router.navigateByUrl('/');
+            window.location.href = '/dashboard';
           } else {
             this.isShowError = true;
           }

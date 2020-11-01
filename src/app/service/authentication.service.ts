@@ -1,13 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-
-export class LoginResponse {
-    constructor(
-        public token: string,
-        public roles: Array<string>
-    ) {}
-}
+import { Account } from '../model/account.model';
 
 @Injectable({
     providedIn: 'root'
@@ -19,7 +13,7 @@ export class AuthenticationService {
     ) {}
 
     authenticate(username, password) {
-        return this.httpClient.post<LoginResponse>(`${environment.baseUrl}/login`,{username,password})
+        return this.httpClient.post<Account>(`${environment.baseUrl}/login`,{username,password})
             .toPromise()
             .then( res => {
                  sessionStorage.setItem('username',username);

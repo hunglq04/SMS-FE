@@ -5,10 +5,17 @@
 export const environment = {
   production: false,
   baseUrl: 'http://localhost:5000/api',
+  internalApiUrl: 'http://localhost:5000/api/internal',
   ROLE_ADMIN: 'ROLE_ADMIN',
   ROLE_MANAGER: 'ROLE_MANAGER',
   ROLE_CASHIER: 'ROLE_CASHIER',
   ROLE_STYLIST: 'ROLE_STYLIST',
+  firebase: {
+    apiKey: "AIzaSyAl3s_hpG7tW4fXHOaGB67AaW-cdIw-vAg",
+    authDomain: "sms-fe.firebaseapp.com",
+    projectId: "sms-fe",
+    storageBucket: "sms-fe.appspot.com"
+  },
 };
 
 /*

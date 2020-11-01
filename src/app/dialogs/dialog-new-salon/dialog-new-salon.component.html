@@ -1,0 +1,67 @@
+<button class="close text-right" mat-button mat-dialog-close (click)="removeImage()">
+    <i class="material-icons">close</i>
+</button>
+<h2 mat-dialog-title>Thêm mới salon</h2>
+<mat-dialog-content>
+    <div *ngIf="errorMessage" class="alert alert-danger">
+        {{errorMessage}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="salonForm">
+        <div class="row ">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Tỉnh thành phố</label>
+                    <input type="text" class="form-control" placeholder="Tên người quản lí" matInput [matAutocomplete]="auto4" formControlName="manager">
+                    <mat-autocomplete #auto4="matAutocomplete" [displayWith]="displayFn">
+                        <mat-option *ngFor="let option of filteredManagers | async" [value]="option">
+                            {{option.name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </div>
+                <div class="form-group">
+                    <label>Salon banner</label>
+                    <app-upload-image (imageUrl)="getImageUrl($event)"></app-upload-image>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Đại chỉ</label>
+                    <input type="text" class="form-control" placeholder="Nhập địa chỉ" formControlName="street" />
+                </div>
+                <div class="form-group">
+                    <label>Tỉnh thành phố</label>
+                    <input type="text" class="form-control" placeholder="Chọn tỉnh/thành phố" matInput [matAutocomplete]="auto" formControlName="province">
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="getDistrictsAndWards($event.option.value.id)">
+                        <mat-option *ngFor="let option of filteredProvinces | async" [value]="option">
+                            {{option.name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </div>
+                <div class="form-group">
+                    <label>Quận huyện</label>
+                    <input type="text" class="form-control" placeholder="Chọn quận/huyện" matInput [matAutocomplete]="auto2" formControlName="district">
+                    <mat-autocomplete #auto2="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onDistrictChange($event.option.value.id)">
+                        <mat-option *ngFor="let option of filteredDistricts | async" [value]="option">
+                            {{option.name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </div>
+                <div class="form-group">
+                    <label>Phường xã</label>
+                    <input type="text" placeholder="Chọn phường/xã" matInput [matAutocomplete]="auto3" class="form-control" formControlName="ward">
+                    <mat-autocomplete autoActiveFirstOption #auto3="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredWards | async" [value]="option">
+                            {{option}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </div>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button (click)="saveSalon()" class="btn btn-primary" cdkFocusInitial>Lưu</button>
+</mat-dialog-actions>

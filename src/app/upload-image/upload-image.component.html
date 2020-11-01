@@ -1,0 +1,17 @@
+<form [formGroup]="pictureForm">
+    <mat-form-field appearance="outline">
+        <div class="text-center">
+            <img *ngIf="imagePreview; else imgPlaceHodler" class="img-fluid" [src]="imagePreview" />
+            <ng-template #imgPlaceHodler>
+                <img src="../../assets/images/NoImage.png" class="img-fluid" />
+            </ng-template>
+            <ngx-mat-file-input accept="image/*" formControlName="photo" (change)="postImage()">
+            </ngx-mat-file-input>
+        </div>
+    </mat-form-field>
+    <mat-progress-bar *ngIf="submitted" [value]="uploadProgress$ | async" mode="determinate">
+    </mat-progress-bar>
+    <mat-error *ngIf="pictureForm.controls['photo'].hasError('image')">
+        Vui lòng chọn file hình ảnh
+    </mat-error>
+</form>
