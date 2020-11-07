@@ -12,7 +12,10 @@ export class SalonService {
   ) {}
 
   addNewSalon(body) {
-    return this.httpClient.post<any>(`${environment.internalApiUrl}/salon`, body)
-              .toPromise();
+    return this.httpClient.post<any>(`${environment.internalApiUrl}/salon`, body).toPromise();
+  }
+
+  getSalon(pageOffset, pageSize) {
+    return this.httpClient.get<any>(`${environment.internalApiUrl}/salon?pageOffset=${pageOffset}&pageSize=${pageSize}`).toPromise();
   }
 }

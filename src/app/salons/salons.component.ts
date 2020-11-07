@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import { DialogNewSalonComponent } from '../dialogs/dialog-new-salon/dialog-new-salon.component';
-
+import { SalonService } from '../service/salon.service';
+import { Page } from '../model/page.model';
 @Component({
   selector: 'app-salons',
   templateUrl: './salons.component.html',
@@ -9,17 +10,46 @@ import { DialogNewSalonComponent } from '../dialogs/dialog-new-salon/dialog-new-
 })
 export class SalonsComponent implements OnInit {
 
+  salons = [];
+  page: Page;
+  empty: boolean;
+  first: boolean;
+  last: boolean;
+  number: number;
+  numberOfElements: number;
+  size: number;
+  totalElements: number;
+  totalPages: number;
   
-  constructor(public dialog: MatDialog) {}
+  constructor(
+    public dialog: MatDialog,
+    public salonService: SalonService,
+  ) {}
 
   ngOnInit(): void {
+     this.getSalon(0);
   }
+
   openDialog() {
     const dialogRef = this.dialog.open(DialogNewSalonComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
+  }
+
+  getSalon(pageOffset) {
+    this.salonService.getSalon(pageOffset, 3).then(res => {
+      this.salons = res["content"];
+      this.page = new Page(res);
+      console.log("Full response", res);
+      console.log("Salon list", this.salons);
+      console.log("Page", this.page);
+    })
+  }
+
+  pageChange(page) {
+    this.getSalon(page);
   }
 
 }
