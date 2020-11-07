@@ -4,8 +4,7 @@
             <h4 class="card-title ">Danh sách các Salon</h4>
         </div>
         <div class="col-md-6 text-right">
-            <a (click)="openDialog()" data-toggle="tooltip" title="Thêm mới"
-                class="btn btn-success btn-round btn-just-icon">
+            <a (click)="openDialog()" data-toggle="tooltip" title="Thêm mới" class="btn btn-success btn-round btn-just-icon">
                 <i class="material-icons">add</i>
             </a>
         </div>
@@ -14,127 +13,28 @@
         <div class="table-responsive">
             <table class="table">
                 <thead class=" text-primary">
-                    <th>
-                        ID
-                    </th>
-                    <th>
-                        Name
-                    </th>
-                    <th>
-                        Country
-                    </th>
-                    <th>
-                        City
-                    </th>
-                    <th>
-                        Salary
-                    </th>
+                    <th>ID</th>
+                    <th>Hình ảnh</th>
+                    <th>Địa chỉ</th>
+                    <th>Người quản lí</th>
+                    <th></th>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>
-                            1
-                        </td>
-                        <td>
-                            Dakota Rice
-                        </td>
-                        <td>
-                            Niger
-                        </td>
-                        <td>
-                            Oud-Turnhout
-                        </td>
-                        <td class="text-primary">
-                            $36,738
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            2
-                        </td>
-                        <td>
-                            Minerva Hooper
-                        </td>
-                        <td>
-                            Curaçao
-                        </td>
-                        <td>
-                            Sinaai-Waas
-                        </td>
-                        <td class="text-primary">
-                            $23,789
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            3
-                        </td>
-                        <td>
-                            Sage Rodriguez
-                        </td>
-                        <td>
-                            Netherlands
-                        </td>
-                        <td>
-                            Baileux
-                        </td>
-                        <td class="text-primary">
-                            $56,142
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            4
-                        </td>
-                        <td>
-                            Philip Chaney
-                        </td>
-                        <td>
-                            Korea, South
-                        </td>
-                        <td>
-                            Overland Park
-                        </td>
-                        <td class="text-primary">
-                            $38,735
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            5
-                        </td>
-                        <td>
-                            Doris Greene
-                        </td>
-                        <td>
-                            Malawi
-                        </td>
-                        <td>
-                            Feldkirchen in Kärnten
-                        </td>
-                        <td class="text-primary">
-                            $63,542
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            6
-                        </td>
-                        <td>
-                            Mason Porter
-                        </td>
-                        <td>
-                            Chile
-                        </td>
-                        <td>
-                            Gloucester
-                        </td>
-                        <td class="text-primary">
-                            $78,615
-                        </td>
-                    </tr>
+                    <ng-container *ngFor="let salon of salons">
+                        <tr>
+                            <td>{{salon.id}}</td>
+                            <td style="max-width: 70px !important; min-width: 70px!important;">
+                                <img *ngIf="salon.image" class="img-fluid" [src]="salon.image" alt="salon.id">
+                                <img *ngIf="!salon.image" class="img-fluid" src="../../assets/images/NoImage.png" alt="salon.id">
+                            </td>
+                            <td>{{salon.address}}</td>
+                            <td>{{salon.manager}}</td>
+                            <td><a href="javascript:void(0)"><i class="material-icons">edit</i></a></td>
+                        </tr>
+                    </ng-container>
                 </tbody>
             </table>
         </div>
+        <app-pagination [page]="page" (newPage)="pageChange($event)"></app-pagination>
     </div>
 </div>

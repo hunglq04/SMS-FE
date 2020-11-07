@@ -29,6 +29,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 //Components
 import { AppComponent } from './app.component';
@@ -41,6 +42,7 @@ import { SalonsComponent } from './salons/salons.component';
 import { SalonDetailComponent } from './salon-detail/salon-detail.component';
 import { DialogNewSalonComponent } from './dialogs/dialog-new-salon/dialog-new-salon.component';
 import { UploadImageComponent } from './upload-image/upload-image.component';
+import { PaginationComponent } from './pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,7 @@ import { UploadImageComponent } from './upload-image/upload-image.component';
     SalonDetailComponent,
     DialogNewSalonComponent,
     UploadImageComponent,
+    PaginationComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,6 +76,7 @@ import { UploadImageComponent } from './upload-image/upload-image.component';
     MaterialFileInputModule,
     MatProgressBarModule,
     MatSnackBarModule,
+    MatPaginatorModule
   ],
   providers: [
     AuthenticationService, 

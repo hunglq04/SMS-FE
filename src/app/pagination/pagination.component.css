@@ -1,0 +1,13 @@
+.page-item.active a.page-link {
+    background-color: #333333 !important;
+    border-radius: 50%;
+}
+
+.page-item a.page-link:hover {
+    border-radius: 50%;
+}
+
+a.page-link {
+    cursor: pointer;
+    margin-left: 5px;
+}
