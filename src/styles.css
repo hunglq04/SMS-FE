@@ -39,3 +39,7 @@ body {
     border: 2px solid #333333;
     background-color: #333333;
 }
+
+.alert.alert-secondary {
+    background-color: #D6D8D9 !important;
+}

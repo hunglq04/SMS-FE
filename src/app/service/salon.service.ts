@@ -18,4 +18,8 @@ export class SalonService {
   getSalon(pageOffset, pageSize) {
     return this.httpClient.get<any>(`${environment.internalApiUrl}/salon?pageOffset=${pageOffset}&pageSize=${pageSize}`).toPromise();
   }
+
+  getSalonByManager() {
+    return this.httpClient.get<any>(`${environment.internalApiUrl}/salon/manager`).toPromise();
+  }
 }

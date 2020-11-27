@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { AppFirebaseModule } from './app-firebase.module';
+import { DatePipe } from '@angular/common';
 
 //Services
 import { AuthenticationService } from './service/authentication.service';
@@ -18,6 +19,7 @@ import { UtilsService } from './service/utils.service';
 import { StorageService } from './service/storage.service';
 import { EmployeeService } from './service/employee.service';
 import { SalonService } from './service/salon.service';
+import { BookingService } from './service/booking.service';
 
 //Material components
 import {MatDialogModule} from '@angular/material/dialog';
@@ -43,7 +45,12 @@ import { SalonDetailComponent } from './salon-detail/salon-detail.component';
 import { DialogNewSalonComponent } from './dialogs/dialog-new-salon/dialog-new-salon.component';
 import { UploadImageComponent } from './upload-image/upload-image.component';
 import { PaginationComponent } from './pagination/pagination.component';
+import { NotificationComponent } from './notification/notification.component';
+import { BookingComponent } from './booking/booking.component';
 
+//Custom pipe
+import { TotalServicePricePipe } from './pipe/total-service-price.pipe';
+import { SalonAddressPipe } from './pipe/salon-address.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,6 +64,10 @@ import { PaginationComponent } from './pagination/pagination.component';
     DialogNewSalonComponent,
     UploadImageComponent,
     PaginationComponent,
+    NotificationComponent,
+    BookingComponent,
+    TotalServicePricePipe,
+    SalonAddressPipe,
   ],
   imports: [
     BrowserModule,
@@ -79,6 +90,7 @@ import { PaginationComponent } from './pagination/pagination.component';
     MatPaginatorModule
   ],
   providers: [
+    DatePipe,
     AuthenticationService, 
     AuthGuardService,
     LoadingService,
@@ -88,6 +100,7 @@ import { PaginationComponent } from './pagination/pagination.component';
     EmployeeService,
     SalonService,
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+    BookingService,
   ],
   bootstrap: [AppComponent]
 })

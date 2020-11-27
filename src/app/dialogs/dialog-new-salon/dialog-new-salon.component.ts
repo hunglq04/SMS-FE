@@ -11,6 +11,9 @@ import { EmployeeService } from 'src/app/service/employee.service';
 import { SalonService } from 'src/app/service/salon.service';
 import { StorageService } from 'src/app/service/storage.service';
 
+import * as $ from 'jquery';
+import 'bootstrap-notify';
+
 @Component({
   selector: 'app-dialog-new-salon',
   templateUrl: './dialog-new-salon.component.html',
@@ -28,6 +31,7 @@ export class DialogNewSalonComponent implements OnInit {
   filteredDistricts: Observable<Array<District>>;
   filteredWards: Observable<string[]>;
   errorMessage = '';
+  isSaved = false;
 
   constructor(
     private addressService: AddressService,
@@ -133,6 +137,7 @@ export class DialogNewSalonComponent implements OnInit {
   }
 
   removeImage() {
+    if (this.isSaved) return;
     let imageUrl = this.salonForm.get('image').value;
     if (imageUrl) {
       this.storageService.delete(imageUrl);
@@ -150,9 +155,35 @@ export class DialogNewSalonComponent implements OnInit {
         this.salonForm.get('image').value
       )
       this.salonService.addNewSalon(salon)
-      .then(() => alert('ngon'))
-      .catch(err => alert(JSON.stringify(err)))
+      .then(() => {
+        this.showNotification("done", "Thêm thành công", "success", "top", "center");
+        this.isSaved = true
+      })
     }
   }
+
+  showNotification(icon, message, type, from, align){
+
+    $.notify({
+        icon: icon,
+        message: message
+    },{
+        type: type,
+        placement: {
+            from: from,
+            align: align
+        },
+        template: '<div data-notify="container" class="col-xl-4 col-lg-4 col-11 col-sm-4 col-md-4 alert alert-{0} alert-with-icon" role="alert">' +
+          '<button mat-button  type="button" aria-hidden="true" class="close mat-button" data-notify="dismiss">  <i class="material-icons">close</i></button>' +
+          `<i class="material-icons" data-notify="icon">${icon}</i> ` +
+          '<span data-notify="title">{1}</span> ' +
+          '<span data-notify="message">{2}</span>' +
+          '<div class="progress" data-notify="progressbar">' +
+            '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
+          '</div>' +
+          '<a href="{3}" target="{4}" data-notify="url"></a>' +
+        '</div>'
+    });
+}
 
 }
