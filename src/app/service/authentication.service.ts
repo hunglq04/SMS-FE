@@ -18,6 +18,7 @@ export class AuthenticationService {
             .then( res => {
                  sessionStorage.setItem('username',username);
                  sessionStorage.setItem('token', 'Bearer ' + res.token);
+                 sessionStorage.setItem('roles', JSON.stringify(res.roles));
                  return res;
             })
       }
@@ -30,9 +31,11 @@ export class AuthenticationService {
     logOut() {
         sessionStorage.removeItem('username');
         sessionStorage.removeItem('token');
+        sessionStorage.removeItem('roles');
     }
 
-    extractUserRole(roles) {
+    extractUserRole() {
+        let roles = JSON.parse(sessionStorage.getItem('roles'))
         if (roles.includes(environment.ROLE_ADMIN)) {
             return environment.ROLE_ADMIN;
         } else if (roles.includes(environment.ROLE_MANAGER)) {

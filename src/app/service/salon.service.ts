@@ -22,4 +22,8 @@ export class SalonService {
   getSalonByManager() {
     return this.httpClient.get<any>(`${environment.internalApiUrl}/salon/manager`).toPromise();
   }
+
+  getAllService() {
+    return this.httpClient.get<any>(`${environment.baseUrl}/client/service/booking`).toPromise();
+  }
 }

@@ -10,14 +10,16 @@
                             <input type="datetime-local" class="form-control" [(ngModel)]="fromDate" (change)="getBookingPage()" />
                         </div>
                     </div>
-                    <div class="col-md-6 form-group row">
+                    <div *ngIf="salons.length > 1" class="col-md-6 form-group row">
                         <h4 class="col-sm-3 text-white text-md-right">Salon</h4>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" placeholder="Địa chỉ salon" matInput [matAutocomplete]="auto2" [formControl]="salonId">
+                            <input type="text" class="form-control" placeholder="Địa chỉ salon" matInput [matAutocomplete]="auto2" [formControl]="salonCtrl">
                         </div>
                         <mat-autocomplete #auto2="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onSalonChange($event.option.value.id)">
                             <mat-option *ngFor="let option of filteredSalons | async" [value]="option">
-                                {{option.street}}
+                                <img *ngIf="!option.image" class="example-option-img" aria-hidden src="../../assets/images/NoImage.png" height="25">
+                                <img *ngIf="option.image" class="example-option-img" aria-hidden [src]="option.image" height="25">
+                                <small> {{option.street}}, {{option.district}}, {{option.province}} </small>
                             </mat-option>
                         </mat-autocomplete>
                     </div>
@@ -25,7 +27,7 @@
             </div>
         </div>
         <div class="col-md-2 text-right">
-            <a data-toggle="tooltip" title="Thêm mới" class="btn btn-success btn-round btn-just-icon">
+            <a data-toggle="tooltip" title="Thêm mới" class="btn btn-success btn-round btn-just-icon" (click)="openBookingDialog()">
                 <i class="material-icons">add</i>
             </a>
         </div>

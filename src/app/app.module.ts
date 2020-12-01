@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { AppFirebaseModule } from './app-firebase.module';
-import { DatePipe } from '@angular/common';
 
 //Services
 import { AuthenticationService } from './service/authentication.service';
@@ -33,6 +32,11 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {MatPaginatorModule} from '@angular/material/paginator';
 
+//Custom pipe
+import { TotalServicePricePipe } from './pipe/total-service-price.pipe';
+import { SalonAddressPipe } from './pipe/salon-address.pipe';
+import { DateTimePipe } from './pipe/date-time.pipe';
+
 //Components
 import { AppComponent } from './app.component';
 import { LoginAdminComponent } from './login-admin/login-admin.component';
@@ -47,12 +51,13 @@ import { UploadImageComponent } from './upload-image/upload-image.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { NotificationComponent } from './notification/notification.component';
 import { BookingComponent } from './booking/booking.component';
+import { DialogNewBookingComponent } from './dialogs/dialog-new-booking/dialog-new-booking.component';
 
-//Custom pipe
-import { TotalServicePricePipe } from './pipe/total-service-price.pipe';
-import { SalonAddressPipe } from './pipe/salon-address.pipe';
 @NgModule({
   declarations: [
+    TotalServicePricePipe,
+    SalonAddressPipe,
+    DateTimePipe,
     AppComponent,
     LoginAdminComponent,
     DashboardComponent,
@@ -66,8 +71,7 @@ import { SalonAddressPipe } from './pipe/salon-address.pipe';
     PaginationComponent,
     NotificationComponent,
     BookingComponent,
-    TotalServicePricePipe,
-    SalonAddressPipe,
+    DialogNewBookingComponent,
   ],
   imports: [
     BrowserModule,
@@ -90,7 +94,7 @@ import { SalonAddressPipe } from './pipe/salon-address.pipe';
     MatPaginatorModule
   ],
   providers: [
-    DatePipe,
+    DateTimePipe,
     AuthenticationService, 
     AuthGuardService,
     LoadingService,

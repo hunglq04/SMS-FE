@@ -1,0 +1,57 @@
+<button class="close text-right" mat-button mat-dialog-close>
+    <i class="material-icons ">close</i>
+</button>
+<h2 mat-dialog-title>Đặt lịch</h2>
+<mat-dialog-content class="mat-typography ">
+    <form class="row" [formGroup]="formBooking">
+        <div *ngIf="data.salons.length > 1" class="form-group col-12">
+            <label>Salon</label>
+            <input type="text" class="form-control" placeholder="Địa chỉ salon" matInput [matAutocomplete]="auto2" formControlName="salon">
+            <mat-autocomplete #auto2="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onSalonChange($event.option.value.id)">
+                <mat-option disabled *ngIf="(filteredSalons | async).length === 0">
+                    Không tìm thấy salon phù hợp
+                </mat-option>
+                <mat-option *ngFor="let option of filteredSalons | async" [value]="option">
+                    <img *ngIf="!option.image" class="example-option-img" aria-hidden src="../../assets/images/NoImage.png" height="25">
+                    <img *ngIf="option.image" class="example-option-img" aria-hidden [src]="option.image" height="25">
+                    <small> {{option.street}}, {{option.district}}, {{option.province}} </small>
+                </mat-option>
+            </mat-autocomplete>
+        </div>
+        <div class="form-group col-md-6">
+            <label>Thời gian</label>
+            <select class="form-control" (change)="onSelectTime()" formControlName="time">
+                <option value="" disabled>Chọn giờ</option>
+                <ng-container *ngFor="let time of times">
+                    <option [value]="time">{{time}}</option>
+                </ng-container>
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+            <label>Stylist</label>
+            <select class="form-control" formControlName="stylist">
+                <option value="" disabled>Chọn stylist</option>
+                <ng-container *ngFor="let stylist of stylists">
+                    <option [value]="stylist">{{stylist}}</option>
+                </ng-container>
+            </select>
+        </div>
+        <div class="form-group col-md-12">
+            <label>Dịch vụ</label>
+            <input type="text" class="form-control" placeholder="Chọn dịch vụ" formControlName="services" matInput [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayEmpty" (optionSelected)="onServiceSelected($event.option.value.id)">
+                <mat-option disabled *ngIf="(filteredServices | async)?.length === 0">
+                    Không tìm thấy dịch vụ phù hợp
+                </mat-option>
+                <mat-option *ngFor="let option of filteredServices | async" [value]="option">
+                    <img *ngIf="!option.bookingImage" class="example-option-img" aria-hidden src="../../assets/images/NoImage.png" height="25">
+                    <img *ngIf="option.bookingImage" class="example-option-img" aria-hidden [src]="option.bookingImage" height="25">
+                    <small> {{option.name}} </small>
+                </mat-option>
+            </mat-autocomplete>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button class="btn btn-primary" mat-button [mat-dialog-close]="true" cdkFocusInitial>Xác nhận</button>
+</mat-dialog-actions>

@@ -31,7 +31,7 @@ export class LoginAdminComponent implements OnInit {
     }
     this.loginService.authenticate(this.loginForm.controls.username.value, this.loginForm.controls.password.value)
       .then(res => {
-          let role = this.loginService.extractUserRole(res.roles);
+          let role = this.loginService.extractUserRole();
           if (role) {
             window.location.href = '/dashboard';
           } else {
