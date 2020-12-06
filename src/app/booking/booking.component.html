@@ -57,7 +57,8 @@
                                 <a class="text-info font-weight-bold" [routerLink]="'salon/' + booking.salon.id">Salon_{{booking.salon.id}}</a>
                             </td>
                             <td>{{booking.dateTime | date: "short"}}</td>
-                            <td>{{booking.customer.name}}</td>
+                            <td *ngIf="booking.customer">{{booking.customer.name}}</td>
+                            <td *ngIf="!booking.customer">{{booking.walkInGuest}} (Khách vãng lai)</td>
                             <td>{{booking.stylist}}</td>
                             <td>
                                 <ng-container *ngFor="let item of booking.services">
@@ -68,10 +69,14 @@
                             <td [ngSwitch]="booking.bookingStatus">
                                 <span *ngSwitchCase="'DONE'" class="badge badge-success">Hoàn thành</span>
                                 <span *ngSwitchCase="'CANCEL'" class="badge badge-danger">Đã hủy</span>
-                                <span *ngSwitchCase="'WAITING'" class="badge badge-warning">Đang đợi</span>
+                                <span *ngSwitchCase="'WAITING'" class="badge badge-warning text-grey">Đang đợi</span>
                                 <span *ngSwitchCase="'IN_PROGRESS'" class="badge badge-info">Đang thực hiện</span>
                             </td>
-                            <td><a class="btn btn-outline-danger btn-just-icon" data-toggle="tooltip" data-placement="top" title="Thanh toán"><i class="material-icons text-lg">attach_money</i></a></td>
+                            <td>
+                                <a class="btn btn-outline-danger btn-just-icon" (click)="openBillDialog(booking.bookingId)" data-toggle="tooltip" data-placement="top" title="Thanh toán">
+                                    <i class="material-icons text-lg">attach_money</i>
+                                </a>
+                            </td>
                         </tr>
                     </ng-container>
                 </tbody>

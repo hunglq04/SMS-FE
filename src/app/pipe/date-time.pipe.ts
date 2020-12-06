@@ -6,7 +6,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class DateTimePipe implements PipeTransform {
   transform(date: Date) {
-    return `${date.getFullYear()}-${(date.getMonth() + 1)}-${date.getDate()}T${date.getHours()}:${date.getMinutes()}`;
-    
+    return `${this.addMissingDigit(date.getFullYear())}-${(this.addMissingDigit(date.getMonth() + 1))}-${this.addMissingDigit(date.getDate())}T${this.addMissingDigit(date.getHours())}:${this.addMissingDigit(date.getMinutes())}`;
+  }
+
+  addMissingDigit(value) {
+    return value.toString().length < 2 ? `0${value}` : value;
   }
 }

@@ -52,6 +52,7 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { NotificationComponent } from './notification/notification.component';
 import { BookingComponent } from './booking/booking.component';
 import { DialogNewBookingComponent } from './dialogs/dialog-new-booking/dialog-new-booking.component';
+import { DialogBillInfoComponent } from './dialogs/dialog-bill-info/dialog-bill-info.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { DialogNewBookingComponent } from './dialogs/dialog-new-booking/dialog-n
     NotificationComponent,
     BookingComponent,
     DialogNewBookingComponent,
+    DialogBillInfoComponent,
   ],
   imports: [
     BrowserModule,
