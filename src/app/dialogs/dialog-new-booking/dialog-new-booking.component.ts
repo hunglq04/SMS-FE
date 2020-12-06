@@ -5,6 +5,8 @@ import { DateTimePipe } from '../../pipe/date-time.pipe';
 import { map, startWith} from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { SalonService } from 'src/app/service/salon.service';
+import { BookingService } from 'src/app/service/booking.service';
+import { UtilsService } from 'src/app/service/utils.service';
 
 @Component({
   selector: 'app-dialog-new-booking',
@@ -19,6 +21,7 @@ export class DialogNewBookingComponent implements OnInit {
   services = [];
   times = [];
   stylists = [];
+  selectedServices = [];
   filteredServices: Observable<any[]>;
   filteredSalons: Observable<any[]>;
   dateTime: string;
@@ -28,7 +31,9 @@ export class DialogNewBookingComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dateTimePipe: DateTimePipe,
     private formBuilder: FormBuilder,
-    private salonService: SalonService
+    private salonService: SalonService,
+    private bookingService: BookingService,
+    private utilsService: UtilsService,
   ) {}
 
   ngOnInit() {
@@ -37,9 +42,10 @@ export class DialogNewBookingComponent implements OnInit {
       salon: ['', Validators.required],
       time: ['', Validators.required],
       stylist: ['', Validators.required],
-      services: [' ', Validators.required]
+      services: [' ', Validators.required],
+      customer: ['', Validators.required],
     })
-    this.dateTime = this.dateTimePipe.transform(new Date);
+    this.dateTime = this.dateTimePipe.transform(new Date());
     this.salons = this.data.salons;
     this.salonId = this.salons.length == 1 ? this.salons[0] : '';
 
@@ -93,9 +99,10 @@ export class DialogNewBookingComponent implements OnInit {
     let allStylishResponses = this.salons.filter(el => el.id === salonId)[0].stylishResponses
     if (!allStylishResponses) this.times = [];
     else {
+      let curTime = this.dateTimePipe.transform(new Date()).split('T')[1];
       allStylishResponses.map(el => Object.entries(el.stylishSchedule))
         .forEach(el => stylistSchedules = stylistSchedules.concat(el));
-        let availableTime = stylistSchedules.filter(el => el[0] > '10:00' 
+        let availableTime = stylistSchedules.filter(el => el[0] > curTime
                                 && el[1]).map(el => el[0]);
         this.times = [...new Set(availableTime)].sort();
     }
@@ -104,11 +111,33 @@ export class DialogNewBookingComponent implements OnInit {
   onSelectTime() {
     let time = this.formBooking.get('time').value;
     this.stylists = this.salons.filter(el => el.id === this.salonId)[0].stylishResponses
-            .filter(el => el.stylishSchedule['10:00']).map(el => el.name)
+            .filter(el => el.stylishSchedule[time]);
   }
 
-  onServiceSelected(serviceId) {
-    alert(serviceId)
+  onServiceSelected(service) {
+    this.selectedServices.push(service);
+    console.log(this.selectedServices);
+  }
+
+  onSubmit() {
+    if (this.formBooking.invalid || this.selectedServices.length === 0) return;
+    let bookingInfo = {};
+    bookingInfo['date'] = this.dateTimePipe.transform(new Date()).split('T')[0];
+    bookingInfo['salonId'] = this.salonId;
+    bookingInfo['serviceIds'] = this.selectedServices.map(service => service.id);
+    bookingInfo['stylistId'] = this.formBooking.get('stylist').value;
+    bookingInfo['time'] = this.formBooking.get('time').value;
+    bookingInfo['walkInGuest'] = this.formBooking.get('customer').value;
+    this.bookingService.postBooKing(bookingInfo)
+      .then(() => {
+        this.utilsService.showNotification("done", "Thêm thành công", "success", "top", "center")
+        this.dialogRef.close(true);
+      })
+      .catch(() => this.utilsService.showNotification("error_outline", "Có lỗi xãy ra!", "danger", "top", "center"))
+  }
+
+  removeService(serviceId) {
+    this.selectedServices = this.selectedServices.filter(service => service.id != serviceId);
   }
 
 }

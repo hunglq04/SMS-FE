@@ -10,6 +10,8 @@ import { DialogNewBookingComponent } from '../dialogs/dialog-new-booking/dialog-
 import { AuthenticationService } from '../service/authentication.service';
 import { environment } from '../../environments/environment';
 import { DateTimePipe } from '../pipe/date-time.pipe';
+import { UtilsService } from '../service/utils.service';
+import { DialogBillInfoComponent } from '../dialogs/dialog-bill-info/dialog-bill-info.component';
 
 @Component({
   selector: 'app-booking',
@@ -32,7 +34,8 @@ export class BookingComponent implements OnInit {
     private salonService: SalonService,
     private dateTimePipe: DateTimePipe,
     public dialog: MatDialog,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private utilsService: UtilsService,
   ) { }
 
   ngOnInit() {
@@ -95,8 +98,24 @@ export class BookingComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      if (result) {
+        this.getBookingPage();
+      }
     });
+  }
+
+  openBillDialog(bookingId) {
+    const dialogRef = this.dialog.open(DialogBillInfoComponent, {
+      width: '500px',
+      height: 'auto',
+      data: {billInfo: this.bookings.filter(item => bookingId === item.bookingId)[0]}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getBookingPage();
+      }
+  });
   }
 
 }

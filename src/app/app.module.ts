@@ -58,6 +58,7 @@ import { ProductsComponent } from './products/products.component';
 import { ServicesComponent } from './services/services.component';
 import { DialogNewProductComponent } from './dialogs/dialog-new-product/dialog-new-product.component';
 import { DialogNewServiceComponent } from './dialogs/dialog-new-service/dialog-new-service.component';
+import { DialogBillInfoComponent } from './dialogs/dialog-bill-info/dialog-bill-info.component';
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { DialogNewServiceComponent } from './dialogs/dialog-new-service/dialog-n
     ServicesComponent,
     DialogNewProductComponent,
     DialogNewServiceComponent,
+    DialogBillInfoComponent,
   ],
   imports: [
     BrowserModule,
