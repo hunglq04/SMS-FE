@@ -9,6 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 const MEDIA_STORAGE_PATH = "salon-banner/";
 
+
 @Component({
   selector: 'app-upload-image',
   templateUrl: './upload-image.component.html',
@@ -22,6 +23,7 @@ export class UploadImageComponent implements OnInit, OnDestroy {
   submitted = false;
   uploadProgress$: Observable<number>;
   toDeleteUrl = '';
+  @Input() folderImage: string;
 
   @Input() imagePreview: string | ArrayBuffer;
   @Output() imageUrl = new EventEmitter();
@@ -67,7 +69,7 @@ export class UploadImageComponent implements OnInit, OnDestroy {
     }
 
     const { downloadUrl$, uploadProgress$ } = this.storageService.uploadFileAndGetMetadata(
-      MEDIA_STORAGE_PATH,
+      this.folderImage,
       this.fileToUpload,
     );
 

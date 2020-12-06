@@ -13,7 +13,8 @@ export const ROUTES: RouteInfo[] = [
     { path: '/user-profile', title: 'Nhân viên',  icon:'person', class: '' },
     { path: '/salon', title: 'Salon',  icon:'store', class: '' },
     { path: '/booking', title: 'Lịch đặt',  icon:'library_books', class: '' },
-    { path: '/icons', title: 'Sản phẩm',  icon:'bubble_chart', class: '' },
+    { path: '/product', title: 'Sản phẩm',  icon:'bubble_chart', class: '' },
+    { path: '/service', title: 'Dịch vụ',  icon:'bubble_chart', class: '' },
     { path: '/maps', title: 'Đơn hàng',  icon:'location_on', class: '' },
     { path: '/notifications', title: 'Khách hàng',  icon:'notifications', class: '' },
 ];

@@ -1,0 +1,43 @@
+<div class="card">
+    <div class="card-header card-header-primary row">
+        <div class="col-md-6">
+            <h4 class="card-title ">Danh sách các dịch vụ</h4>
+        </div>
+        <div class="col-md-6 text-right">
+            <a data-toggle="tooltip" title="Thêm mới" class="btn btn-success btn-round btn-just-icon">
+                <i class="material-icons">add</i>
+            </a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table">
+                <thead class=" text-primary">
+                    <th>ID</th>
+                    <th>Hình ảnh</th>
+                    <th>Tên</th>
+                    <th>Giá</th>
+                    <th>Mô tả</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let service of services">
+                        <tr>
+                            <td>{{service.id}}</td>
+                            <td style="max-width: 70px !important; min-width: 70px!important;">
+                                <img *ngIf="service.bookingImage" class="img-fluid" [src]="service.bookingImage" alt="service.id">
+                                <img *ngIf="!service.bookingImage" class="img-fluid" src="../../assets/images/NoImage.png" alt="service.id">
+                            </td>
+                            <td>{{service.name}}</td>
+                            <td>{{service.price}}</td>
+                            <td>{{service.desciption}}</td>
+                            <td><a href="javascript:void(0)"><i class="material-icons">edit</i></a></td>
+                            <td><a href="javascript:void(0)" (click)='deleteService(service.id)'><i class="material-icons">delete</i></a></td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+        <app-pagination></app-pagination>
+    </div>
+</div>

@@ -1,5 +1,5 @@
 //Modules
-import { NgModule }      from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
@@ -19,18 +19,20 @@ import { StorageService } from './service/storage.service';
 import { EmployeeService } from './service/employee.service';
 import { SalonService } from './service/salon.service';
 import { BookingService } from './service/booking.service';
+import { ProductService } from './service/product.service';
+import { ServiceService } from './service/service.service';
 
 //Material components
-import {MatDialogModule} from '@angular/material/dialog';
-import {MatAutocompleteModule} from '@angular/material/autocomplete'; 
-import {MatSelectModule} from '@angular/material/select';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 //Custom pipe
 import { TotalServicePricePipe } from './pipe/total-service-price.pipe';
@@ -52,6 +54,10 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { NotificationComponent } from './notification/notification.component';
 import { BookingComponent } from './booking/booking.component';
 import { DialogNewBookingComponent } from './dialogs/dialog-new-booking/dialog-new-booking.component';
+import { ProductsComponent } from './products/products.component';
+import { ServicesComponent } from './services/services.component';
+import { DialogNewProductComponent } from './dialogs/dialog-new-product/dialog-new-product.component';
+import { DialogNewServiceComponent } from './dialogs/dialog-new-service/dialog-new-service.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +78,10 @@ import { DialogNewBookingComponent } from './dialogs/dialog-new-booking/dialog-n
     NotificationComponent,
     BookingComponent,
     DialogNewBookingComponent,
+    ProductsComponent,
+    ServicesComponent,
+    DialogNewProductComponent,
+    DialogNewServiceComponent,
   ],
   imports: [
     BrowserModule,
@@ -95,7 +105,7 @@ import { DialogNewBookingComponent } from './dialogs/dialog-new-booking/dialog-n
   ],
   providers: [
     DateTimePipe,
-    AuthenticationService, 
+    AuthenticationService,
     AuthGuardService,
     LoadingService,
     AddressService,
@@ -103,6 +113,8 @@ import { DialogNewBookingComponent } from './dialogs/dialog-new-booking/dialog-n
     StorageService,
     EmployeeService,
     SalonService,
+    ProductService,
+    ServiceService,
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
     BookingService,
   ],

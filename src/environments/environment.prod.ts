@@ -12,5 +12,5 @@ export const environment = {
     projectId: "sms-fe",
     storageBucket: "sms-fe.appspot.com"
   },
-  pageSize: 5,
+  pageSize: 10,
 };

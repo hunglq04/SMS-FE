@@ -13,7 +13,7 @@ export class SalonsComponent implements OnInit {
 
   salons = [];
   page: Page;
-  
+
   constructor(
     public dialog: MatDialog,
     public salonService: SalonService,
