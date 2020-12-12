@@ -1,0 +1,27 @@
+<button class="close text-right" mat-button mat-dialog-close>
+    <i class="material-icons">close</i>
+</button>
+<h2 mat-dialog-title>Thông tin booking</h2>
+<mat-dialog-content>
+    <h3>Khách hàng</h3>
+    <h3>Trạng thái</h3>
+    <h3>Dịch vụ</h3>
+    <div class="row">
+        <div class="col-12"><h3>Upload hình ảnh</h3></div>
+        <div class="col-6">
+            <app-upload-image (imageUrl)="getImageUrl($event)" folderImage="rating/"></app-upload-image>
+        </div>
+        <div class="col-6">
+            <app-upload-image (imageUrl)="getImageUrl($event)" folderImage="rating/"></app-upload-image>
+        </div>
+        <div class="col-6">
+            <app-upload-image (imageUrl)="getImageUrl($event)" folderImage="rating/"></app-upload-image>
+        </div>
+        <div class="col-6">
+            <app-upload-image (imageUrl)="getImageUrl($event)" folderImage="rating/"></app-upload-image>
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button class="btn btn-primary" mat-button mat-dialog-close="true" cdkFocusInitial>Cập nhật</button>
+</mat-dialog-actions>

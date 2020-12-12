@@ -43,3 +43,28 @@ body {
 .alert.alert-secondary {
     background-color: #D6D8D9 !important;
 }
+
+.done.k-event {
+    background-color: #4caf50 !important;
+}
+
+.cancel.k-event {
+    background-color: steelblue !important;
+}
+
+.waiting.k-event {
+    background-color: #ffeb3b !important;
+}
+
+.in_progress.k-event {
+    background-color: #00bcd4 !important;
+}
+
+ul.k-reset.k-header {
+    display: none;
+}
+
+h3 {
+    font-weight: 500 !important;
+    text-decoration: "underline" !important;
+}

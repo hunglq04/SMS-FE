@@ -63,6 +63,8 @@ import { DialogNewServiceComponent } from './dialogs/dialog-new-service/dialog-n
 import { DialogBillInfoComponent } from './dialogs/dialog-bill-info/dialog-bill-info.component';
 import { StylistSchedulerComponent } from './stylist-scheduler/stylist-scheduler.component';
 import { SchedulerComponent } from './scheduler/scheduler.component';
+import { DialogStylistWorkingComponent } from './dialogs/dialog-stylist-working/dialog-stylist-working.component';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -92,6 +94,7 @@ import { SchedulerComponent } from './scheduler/scheduler.component';
     DialogBillInfoComponent,
     StylistSchedulerComponent,
     SchedulerComponent,
+    DialogStylistWorkingComponent,
   ],
   imports: [
     BrowserModule,
@@ -117,6 +120,7 @@ import { SchedulerComponent } from './scheduler/scheduler.component';
   ],
   providers: [
     DateTimePipe,
+    DatePipe,
     AuthenticationService,
     AuthGuardService,
     LoadingService,

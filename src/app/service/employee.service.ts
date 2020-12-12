@@ -18,4 +18,9 @@ export class EmployeeService {
     return this.httpClient.get<Array<ManagerInfo>>(`${environment.internalApiUrl}/employee/managers`)
               .toPromise();
   }
+
+  getStylistScheduler(date) {
+    return this.httpClient.get<any>(`${environment.internalApiUrl}/employee/stylist/scheduler?date=${date}`)
+              .toPromise();
+  }
 }
