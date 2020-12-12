@@ -7,6 +7,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { AppFirebaseModule } from './app-firebase.module';
+import { SchedulerModule } from '@progress/kendo-angular-scheduler';
+import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 
 //Services
 import { AuthenticationService } from './service/authentication.service';
@@ -59,6 +61,10 @@ import { ServicesComponent } from './services/services.component';
 import { DialogNewProductComponent } from './dialogs/dialog-new-product/dialog-new-product.component';
 import { DialogNewServiceComponent } from './dialogs/dialog-new-service/dialog-new-service.component';
 import { DialogBillInfoComponent } from './dialogs/dialog-bill-info/dialog-bill-info.component';
+import { StylistSchedulerComponent } from './stylist-scheduler/stylist-scheduler.component';
+import { SchedulerComponent } from './scheduler/scheduler.component';
+
+
 
 @NgModule({
   declarations: [
@@ -84,6 +90,8 @@ import { DialogBillInfoComponent } from './dialogs/dialog-bill-info/dialog-bill-
     DialogNewProductComponent,
     DialogNewServiceComponent,
     DialogBillInfoComponent,
+    StylistSchedulerComponent,
+    SchedulerComponent,
   ],
   imports: [
     BrowserModule,
@@ -103,7 +111,9 @@ import { DialogBillInfoComponent } from './dialogs/dialog-bill-info/dialog-bill-
     MaterialFileInputModule,
     MatProgressBarModule,
     MatSnackBarModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    DateInputsModule,
+    SchedulerModule
   ],
   providers: [
     DateTimePipe,

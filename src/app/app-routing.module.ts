@@ -8,9 +8,11 @@ import { AuthGuardService } from './service/auth-guard.service';
 import { BookingComponent } from './booking/booking.component';
 import { ProductsComponent } from './products/products.component';
 import { ServicesComponent } from './services/services.component';
+import { StylistSchedulerComponent } from './stylist-scheduler/stylist-scheduler.component';
 
 const routes: Routes =
   [
+    { path: 'scheduler', component: StylistSchedulerComponent },
     { path: 'login', component: LoginAdminComponent },
     { path: '', redirectTo: '/dashboard', pathMatch: 'full', canActivate: [AuthGuardService] },
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService] },
