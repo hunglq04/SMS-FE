@@ -23,4 +23,18 @@ export class BookingService {
   postInvoice(bookingId: number) {
     return this.httpClient.post<number>(`${environment.internalApiUrl}/booking/${bookingId}/invoice`, null).toPromise();
   }
+
+  startProgress(bookingId) {
+    return this.httpClient.post<any>(`${environment.internalApiUrl}/booking/${bookingId}/start`, null).toPromise();
+  }
+
+  finishProgress(bookingId, image1, image2, image3, image4) {
+    let images = {
+      image1: image1,
+      image2: image2,
+      image3: image3,
+      image4: image4,
+    }
+    return this.httpClient.post<any>(`${environment.internalApiUrl}/booking/${bookingId}/finish`, images).toPromise();
+  }
 }

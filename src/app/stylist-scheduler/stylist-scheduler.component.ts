@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Event } from '../scheduler/scheduler.component';
 import { EmployeeService } from '../service/employee.service';
 
@@ -7,44 +7,16 @@ import { EmployeeService } from '../service/employee.service';
   templateUrl: './stylist-scheduler.component.html',
 styleUrls: ['./stylist-scheduler.component.scss']
 })
-export class StylistSchedulerComponent implements OnInit, OnChanges {
+export class StylistSchedulerComponent implements OnInit {
   
   events: Event[] = [];
   selectedDate = new Date();
-  event: Event = {
-    id: 1,
-    title: 'Breakfast',
-    description: '123123213 \n asdfasdfds \n asdasd ',
-    start: new Date(),
-    end: new Date(),
-    status: 'as'
-  };
-
-  event1: Event = {
-    id: 1,
-    title: 'Breakfast (morning)',
-    description: '123123213 \n asdfasdfds \n asdasd ',
-    start: new Date('2020-12-12T09:00'),
-    end: new Date('2020-12-12T10:00'),
-    status: 'in_progress'
-  };
 
   constructor(
     private employeeService: EmployeeService,
   ) { }
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
-    console.log(changes.selectedDate.currentValue);
-  }
 
   ngOnInit(): void {
-    for (let i = 0; i < 3; i++) {
-      var dt = new Date();
-      dt.setHours( dt.getHours() + i );
-      this.event.end = dt;
-      this.events.push(this.event)
-      this.events.push(this.event1)
-    }
   }
 
   getStylistScheduler(date) {
@@ -52,24 +24,27 @@ export class StylistSchedulerComponent implements OnInit, OnChanges {
     .then(res => {
       this.events = []
       res.forEach(element => {
+        let service = element.services.map(el => el.name).join(',')
+        let title = `${service} - Khách hàng ${element.customer}`
         this.events.push({
           id: element.id,
-          title: element.title,
-          description: element.description,
+          title: title,
+          services: element.services,
+          customer: element.customer,
           start: new Date(element.start),
           end: new Date(element.end),
-          status: element.status
+          status: element.status,
+          image1: element.image1,
+          image2: element.image2,
+          image3: element.image3,
+          image4: element.image4
         })
       });
-      console.log(res);
-    })
+    }).catch(err => console.error(err))
   }
   
-  async dateChange(date) {
-    await this.getStylistScheduler(date);
-    await alert(this.events.length)
-    await this.events.push(this.event1)
-    await console.log("EVENT", this.events)
+  dateChange(date) {
+    this.getStylistScheduler(date);
   }
   
 }

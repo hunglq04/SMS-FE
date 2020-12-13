@@ -3,25 +3,48 @@
 </button>
 <h2 mat-dialog-title>Thông tin booking</h2>
 <mat-dialog-content>
-    <h3>Khách hàng</h3>
-    <h3>Trạng thái</h3>
-    <h3>Dịch vụ</h3>
-    <div class="row">
-        <div class="col-12"><h3>Upload hình ảnh</h3></div>
-        <div class="col-6">
-            <app-upload-image (imageUrl)="getImageUrl($event)" folderImage="rating/"></app-upload-image>
-        </div>
-        <div class="col-6">
-            <app-upload-image (imageUrl)="getImageUrl($event)" folderImage="rating/"></app-upload-image>
-        </div>
-        <div class="col-6">
-            <app-upload-image (imageUrl)="getImageUrl($event)" folderImage="rating/"></app-upload-image>
-        </div>
-        <div class="col-6">
-            <app-upload-image (imageUrl)="getImageUrl($event)" folderImage="rating/"></app-upload-image>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h3 class="col-4">Khách hàng: </h3>
+                <h4 class="col-8">{{bookingInfo.customer}}</h4>
+            </div>
+            <div class="row">
+                <h3 class="col-4">Trạng thái: </h3>
+                <div class="col-8" [ngSwitch]="bookingInfo.status">
+                    <span *ngSwitchCase="'DONE'" class="badge badge-success">Hoàn thành</span>
+                    <span *ngSwitchCase="'CANCEL'" class="badge badge-warning text-grey">Đã hủy</span>
+                    <span *ngSwitchCase="'WAITING'" class="badge badge-danger">Đang đợi</span>
+                    <span *ngSwitchCase="'IN_PROGRESS'" class="badge badge-info">Đang thực hiện</span>
+                </div>
+            </div>
+            <div class="row">
+                <h3 class="col-4">Dịch vụ:</h3>
+                <ul class="col-8">
+                    <li *ngFor="let service of bookingInfo.services">{{service.name}}</li>
+                </ul>
+            </div>
+            <div *ngIf="bookingInfo.status === 'IN_PROGRESS' || bookingInfo.status === 'DONE'" class="row">
+                <div class="col-12">
+                    <h3>Hình ảnh</h3>
+                </div>
+                <div class="col-6">
+                    <app-upload-image [imagePreview]="bookingInfo.image1" (imageUrl)="getImage1($event)" folderImage="rating/"></app-upload-image>
+                </div>
+                <div class="col-6">
+                    <app-upload-image [imagePreview]="bookingInfo.image2" (imageUrl)="getImage2($event)" folderImage="rating/"></app-upload-image>
+                </div>
+                <div class="col-6">
+                    <app-upload-image [imagePreview]="bookingInfo.image3" (imageUrl)="getImage3($event)" folderImage="rating/"></app-upload-image>
+                </div>
+                <div class="col-6">
+                    <app-upload-image [imagePreview]="bookingInfo.image4" (imageUrl)="getImage4($event)" folderImage="rating/"></app-upload-image>
+                </div>
+            </div>
         </div>
     </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-button class="btn btn-primary" mat-button mat-dialog-close="true" cdkFocusInitial>Cập nhật</button>
+    <button *ngIf="isShowStart(bookingInfo.start)" mat-button class="btn btn-primary" mat-button mat-dialog-close="true" cdkFocusInitial (click)="startProgress(bookingInfo.id)">Bắt đầu</button>
+    <button *ngIf="bookingInfo.status === 'IN_PROGRESS'" mat-button class="btn btn-primary" mat-button mat-dialog-close cdkFocusInitial (click)="finishProgress(bookingInfo.id)">Cập nhật hình ảnh</button>
 </mat-dialog-actions>

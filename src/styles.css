@@ -53,7 +53,7 @@ body {
 }
 
 .waiting.k-event {
-    background-color: #ffeb3b !important;
+    background-color: #f44336 !important;
 }
 
 .in_progress.k-event {
@@ -67,4 +67,9 @@ ul.k-reset.k-header {
 h3 {
     font-weight: 500 !important;
     text-decoration: "underline" !important;
+}
+
+span.badge {
+    max-width: 120px;
+    padding: 7px;
 }
