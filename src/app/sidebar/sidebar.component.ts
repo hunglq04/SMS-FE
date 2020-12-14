@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from '../../environments/environment';
+import { AuthenticationService } from '../service/authentication.service';
 
 declare const $: any;
 declare interface RouteInfo {
@@ -6,17 +8,18 @@ declare interface RouteInfo {
     title: string;
     icon: string;
     class: string;
+    roles: string[];
 }
 
 export const ROUTES: RouteInfo[] = [
-    { path: '/dashboard', title: 'Tổng quan',  icon: 'dashboard', class: '' },
-    { path: '/user-profile', title: 'Nhân viên',  icon:'person', class: '' },
-    { path: '/salon', title: 'Salon',  icon:'store', class: '' },
-    { path: '/booking', title: 'Lịch đặt',  icon:'library_books', class: '' },
-    { path: '/product', title: 'Sản phẩm',  icon:'bubble_chart', class: '' },
-    { path: '/service', title: 'Dịch vụ',  icon:'bubble_chart', class: '' },
-    { path: '/maps', title: 'Đơn hàng',  icon:'location_on', class: '' },
-    { path: '/notifications', title: 'Khách hàng',  icon:'notifications', class: '' },
+    { path: '/dashboard', title: 'Tổng quan',  icon: 'dashboard', class: '', roles: [environment.ROLE_ADMIN, environment.ROLE_MANAGER] },
+    { path: '/user-profile', title: 'Nhân viên',  icon:'person', class: '', roles: [environment.ROLE_ADMIN, environment.ROLE_MANAGER] },
+    { path: '/salon', title: 'Salon',  icon:'store', class: '', roles: [environment.ROLE_ADMIN, environment.ROLE_MANAGER] },
+    { path: '/booking', title: 'Lịch đặt',  icon:'library_books', class: '', roles: [environment.ROLE_ADMIN, environment.ROLE_MANAGER, environment.ROLE_CASHIER] },
+    { path: '/product', title: 'Sản phẩm',  icon:'shopping_bag', class: '', roles: [environment.ROLE_ADMIN, environment.ROLE_MANAGER] },
+    { path: '/service', title: 'Dịch vụ',  icon:'bubble_chart', class: '', roles: [environment.ROLE_ADMIN, environment.ROLE_MANAGER] },
+    { path: '/schedule', title: 'Lịch làm việc',  icon:'date_range', class: '', roles: [environment.ROLE_STYLIST] },
+    // { path: '/notifications', title: 'Khách hàng',  icon:'notifications', class: '', roles: [environment.R] },
 ];
 
 @Component({
@@ -25,11 +28,16 @@ export const ROUTES: RouteInfo[] = [
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-  menuItems: any[];
 
-  constructor() { }
+  menuItems: any[];
+  role: string;
+
+  constructor(
+    private authService: AuthenticationService
+  ) { }
 
   ngOnInit() {
+    this.role = this.authService.extractUserRole();
     this.menuItems = ROUTES.filter(menuItem => menuItem);
   }
   isMobileMenu() {

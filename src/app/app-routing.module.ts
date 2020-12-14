@@ -5,6 +5,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SalonsComponent } from './salons/salons.component';
 import { SalonDetailComponent } from './salon-detail/salon-detail.component';
 import { AuthGuardService } from './service/auth-guard.service';
+import { AuthAdminService } from './service/auth-admin.service';
 import { BookingComponent } from './booking/booking.component';
 import { ProductsComponent } from './products/products.component';
 import { ServicesComponent } from './services/services.component';
@@ -12,15 +13,15 @@ import { StylistSchedulerComponent } from './stylist-scheduler/stylist-scheduler
 
 const routes: Routes =
   [
-    { path: 'scheduler', component: StylistSchedulerComponent },
+    { path: 'schedule', component: StylistSchedulerComponent, canActivate: [AuthGuardService] },
     { path: 'login', component: LoginAdminComponent },
-    { path: '', redirectTo: '/dashboard', pathMatch: 'full', canActivate: [AuthGuardService] },
-    { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService] },
+    { path: '', redirectTo: '/dashboard', pathMatch: 'full', canActivate: [AuthGuardService, AuthAdminService] },
+    { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService, AuthAdminService] },
     { path: 'salon', component: SalonsComponent, canActivate: [AuthGuardService] },
     { path: 'salon/:id', component: SalonDetailComponent, canActivate: [AuthGuardService] },
     { path: 'booking', component: BookingComponent, canActivate: [AuthGuardService] },
-    { path: 'product', component: ProductsComponent, canActivate: [AuthGuardService] },
-    { path: 'service', component: ServicesComponent, canActivate: [AuthGuardService] },
+    { path: 'product', component: ProductsComponent, canActivate: [AuthGuardService, AuthAdminService] },
+    { path: 'service', component: ServicesComponent, canActivate: [AuthGuardService, AuthAdminService] },
   ]
 
 @NgModule({

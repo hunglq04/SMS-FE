@@ -23,6 +23,7 @@ import { SalonService } from './service/salon.service';
 import { BookingService } from './service/booking.service';
 import { ProductService } from './service/product.service';
 import { ServiceService } from './service/service.service';
+import { AuthAdminService } from './service/auth-admin.service';
 
 //Material components
 import { MatDialogModule } from '@angular/material/dialog';
@@ -133,6 +134,7 @@ import { DatePipe } from '@angular/common';
     ServiceService,
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
     BookingService,
+    AuthAdminService,
   ],
   bootstrap: [AppComponent]
 })
