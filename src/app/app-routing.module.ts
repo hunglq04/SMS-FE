@@ -10,10 +10,18 @@ import { BookingComponent } from './booking/booking.component';
 import { ProductsComponent } from './products/products.component';
 import { ServicesComponent } from './services/services.component';
 import { StylistSchedulerComponent } from './stylist-scheduler/stylist-scheduler.component';
+import { ProfileComponent } from './profile/profile.component';
+import { EmployeeComponent } from './employee/employee.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { InternalErrorComponent } from './internal-error/internal-error.component';
+import { InvalidPermissionComponent } from './invalid-permission/invalid-permission.component';
 
 const routes: Routes =
   [
-    { path: 'schedule', component: StylistSchedulerComponent, canActivate: [AuthGuardService] },
+    //todo add route for permission error, internal error, not-found
+    { path: 'error', component: InternalErrorComponent },
+    { path: 'invalid-permission', component: InvalidPermissionComponent },
+    { path: 'not-found', component: NotFoundComponent },
     { path: 'login', component: LoginAdminComponent },
     { path: '', redirectTo: '/dashboard', pathMatch: 'full', canActivate: [AuthGuardService, AuthAdminService] },
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService, AuthAdminService] },
@@ -22,6 +30,9 @@ const routes: Routes =
     { path: 'booking', component: BookingComponent, canActivate: [AuthGuardService] },
     { path: 'product', component: ProductsComponent, canActivate: [AuthGuardService, AuthAdminService] },
     { path: 'service', component: ServicesComponent, canActivate: [AuthGuardService, AuthAdminService] },
+    { path: 'schedule', component: StylistSchedulerComponent, canActivate: [AuthGuardService] },
+    { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService] },
+    { path: 'employee', component: EmployeeComponent, canActivate: [AuthGuardService, AuthAdminService] },
   ]
 
 @NgModule({

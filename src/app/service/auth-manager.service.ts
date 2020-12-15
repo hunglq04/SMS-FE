@@ -4,7 +4,7 @@ import { AuthenticationService } from './authentication.service';
 import { environment } from '../../environments/environment';
 
 @Injectable()
-export class AuthAdminService implements CanActivate {
+export class AuthManagerService implements CanActivate {
 
   role: string;
 
@@ -14,7 +14,7 @@ export class AuthAdminService implements CanActivate {
   
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     let url = this.router.getCurrentNavigation().extractedUrl.toString()
-    if (this.role === environment.ROLE_ADMIN) {
+    if ((this.role === environment.ROLE_ADMIN) || (this.role === environment.ROLE_MANAGER)) {
       return true;
     }
     if (url === '/') {
@@ -22,16 +22,12 @@ export class AuthAdminService implements CanActivate {
         case environment.ROLE_STYLIST:
           this.router.navigateByUrl('/schedule')
           return false;
-        case environment.ROLE_MANAGER:
-          this.router.navigateByUrl('/employee')
-          return false;
         case environment.ROLE_CASHIER:
           this.router.navigateByUrl('/salon')
           return false;
       }
     }
     this.router.navigateByUrl('/invalid-permission');
-    alert(url)
     return false;
   }
 }

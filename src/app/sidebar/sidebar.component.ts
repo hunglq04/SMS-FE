@@ -13,7 +13,7 @@ declare interface RouteInfo {
 
 export const ROUTES: RouteInfo[] = [
     { path: '/dashboard', title: 'Tổng quan',  icon: 'dashboard', class: '', roles: [environment.ROLE_ADMIN, environment.ROLE_MANAGER] },
-    { path: '/user-profile', title: 'Nhân viên',  icon:'person', class: '', roles: [environment.ROLE_ADMIN, environment.ROLE_MANAGER] },
+    { path: '/employee', title: 'Nhân viên',  icon:'person', class: '', roles: [environment.ROLE_ADMIN, environment.ROLE_MANAGER] },
     { path: '/salon', title: 'Salon',  icon:'store', class: '', roles: [environment.ROLE_ADMIN, environment.ROLE_MANAGER] },
     { path: '/booking', title: 'Lịch đặt',  icon:'library_books', class: '', roles: [environment.ROLE_ADMIN, environment.ROLE_MANAGER, environment.ROLE_CASHIER] },
     { path: '/product', title: 'Sản phẩm',  icon:'shopping_bag', class: '', roles: [environment.ROLE_ADMIN, environment.ROLE_MANAGER] },
@@ -45,5 +45,8 @@ export class SidebarComponent implements OnInit {
           return false;
       }
       return true;
-  };
+  }
+  logout() {
+    this.authService.logOut();
+  }
 }

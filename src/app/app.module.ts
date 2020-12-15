@@ -24,6 +24,7 @@ import { BookingService } from './service/booking.service';
 import { ProductService } from './service/product.service';
 import { ServiceService } from './service/service.service';
 import { AuthAdminService } from './service/auth-admin.service';
+import { AuthManagerService } from './service/auth-manager.service';
 
 //Material components
 import { MatDialogModule } from '@angular/material/dialog';
@@ -36,6 +37,7 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 //Custom pipe
 import { TotalServicePricePipe } from './pipe/total-service-price.pipe';
@@ -66,6 +68,15 @@ import { StylistSchedulerComponent } from './stylist-scheduler/stylist-scheduler
 import { SchedulerComponent } from './scheduler/scheduler.component';
 import { DialogStylistWorkingComponent } from './dialogs/dialog-stylist-working/dialog-stylist-working.component';
 import { DatePipe } from '@angular/common';
+import { EmployeeComponent } from './employee/employee.component';
+import { ProfileComponent } from './profile/profile.component';
+import { InvalidPermissionComponent } from './invalid-permission/invalid-permission.component';
+import { InternalErrorComponent } from './internal-error/internal-error.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { ChartsModule } from '@progress/kendo-angular-charts';
+import 'hammerjs';
+
+
 
 
 
@@ -96,6 +107,11 @@ import { DatePipe } from '@angular/common';
     StylistSchedulerComponent,
     SchedulerComponent,
     DialogStylistWorkingComponent,
+    EmployeeComponent,
+    ProfileComponent,
+    InvalidPermissionComponent,
+    InternalErrorComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -117,7 +133,9 @@ import { DatePipe } from '@angular/common';
     MatSnackBarModule,
     MatPaginatorModule,
     DateInputsModule,
-    SchedulerModule
+    SchedulerModule,
+    MatTooltipModule,
+    ChartsModule,
   ],
   providers: [
     DateTimePipe,
@@ -135,6 +153,7 @@ import { DatePipe } from '@angular/common';
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
     BookingService,
     AuthAdminService,
+    AuthManagerService,
   ],
   bootstrap: [AppComponent]
 })
