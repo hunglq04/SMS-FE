@@ -1,4 +1,5 @@
 export class Service {
+  id: number;
   serviceType: string;
   name: string;
   bookingImage: string;
@@ -7,5 +8,4 @@ export class Service {
   price: number;
   duration: number;
   isRecomnend: boolean;
-  id: number;
 }

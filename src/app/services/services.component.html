@@ -5,7 +5,7 @@
         </div>
         <div class="col-md-6 text-right">
             <a data-toggle="tooltip" title="Thêm mới" class="btn btn-success btn-round btn-just-icon">
-                <i class="material-icons">add</i>
+                <i class="material-icons" (click)="openDialog(-1)">add</i>
             </a>
         </div>
     </div>
@@ -16,28 +16,37 @@
                     <th>ID</th>
                     <th>Hình ảnh</th>
                     <th>Tên</th>
+                    <th>Loại dịch vụ</th>
                     <th>Giá</th>
+                    <th>Thời gian</th>
                     <th>Mô tả</th>
+                    <th>Hỉnh ảnh chi tiết</th>
                     <th></th>
                 </thead>
                 <tbody>
                     <ng-container *ngFor="let service of services">
                         <tr>
                             <td>{{service.id}}</td>
-                            <td style="max-width: 70px !important; min-width: 70px!important;">
+                            <td style="max-width: 20px !important; min-width: 10px!important;">
                                 <img *ngIf="service.bookingImage" class="img-fluid" [src]="service.bookingImage" alt="service.id">
                                 <img *ngIf="!service.bookingImage" class="img-fluid" src="../../assets/images/NoImage.png" alt="service.id">
                             </td>
                             <td>{{service.name}}</td>
-                            <td>{{service.price}}</td>
-                            <td>{{service.desciption}}</td>
-                            <td><a href="javascript:void(0)"><i class="material-icons">edit</i></a></td>
+                            <td>{{service.serviceType}}</td>
+                            <td>{{service.price | currency : "VND"}}</td>
+                            <td>{{service.duration}} phút</td>
+                            <td>{{service.description}}</td>
+                            <td style="max-width: 70px !important; min-width: 70px!important;">
+                                <img *ngIf="service.descriptionImage" class="img-fluid" [src]="service.descriptionImage" alt="service.id">
+                                <img *ngIf="!service.descriptionImage" class="img-fluid" src="../../assets/images/NoImage.png" alt="service.id">
+                            </td>
+                            <td><a href="javascript:void(0)" (click)="openDialog(service)"><i class="material-icons">edit</i></a></td>
                             <td><a href="javascript:void(0)" (click)='deleteService(service.id)'><i class="material-icons">delete</i></a></td>
                         </tr>
                     </ng-container>
                 </tbody>
             </table>
         </div>
-        <app-pagination></app-pagination>
+        <app-pagination [page]="page" (newPage)="pageChange($event)"></app-pagination>
     </div>
 </div>
