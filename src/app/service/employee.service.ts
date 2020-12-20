@@ -18,4 +18,9 @@ export class EmployeeService {
     return this.httpClient.get<Array<ManagerInfo>>(`${environment.internalApiUrl}/employee/managers`)
               .toPromise();
   }
+
+  getAllEmployyBySalon(pageOffset, pageSize, salonId) {
+    return this.httpClient.get<any>(`${environment.internalApiUrl}/employee?pageOffset=${pageOffset}&pageSize=${pageSize}&salonId=${salonId}`)
+              .toPromise();
+  }
 }
