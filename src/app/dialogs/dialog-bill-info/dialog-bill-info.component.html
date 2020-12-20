@@ -36,5 +36,5 @@
     </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-button (click)="printPdf()" class="btn btn-primary" mat-button mat-dialog-close="true" cdkFocusInitial>In hóa đơn</button>
+    <button *ngIf="status != 'WAITING'" mat-button (click)="printPdf()" class="btn btn-primary" mat-button mat-dialog-close="true" cdkFocusInitial>In hóa đơn</button>
 </mat-dialog-actions>
