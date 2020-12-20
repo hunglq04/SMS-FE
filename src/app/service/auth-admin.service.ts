@@ -17,6 +17,10 @@ export class AuthAdminService implements CanActivate {
     if (this.role === environment.ROLE_ADMIN) {
       return true;
     }
+    if (url === '/login') {
+      this.router.navigateByUrl(url);
+      return false;
+    }
     if (url === '/') {
       switch(this.role) {
         case environment.ROLE_STYLIST:
@@ -26,12 +30,14 @@ export class AuthAdminService implements CanActivate {
           this.router.navigateByUrl('/employee')
           return false;
         case environment.ROLE_CASHIER:
-          this.router.navigateByUrl('/salon')
+          this.router.navigateByUrl('/booking')
+          return false;
+        default:
+          this.router.navigateByUrl('/login')
           return false;
       }
     }
     this.router.navigateByUrl('/invalid-permission');
-    alert(url)
     return false;
   }
 }

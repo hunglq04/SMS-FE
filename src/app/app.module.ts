@@ -38,6 +38,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 //Custom pipe
 import { TotalServicePricePipe } from './pipe/total-service-price.pipe';
@@ -67,7 +68,7 @@ import { DialogBillInfoComponent } from './dialogs/dialog-bill-info/dialog-bill-
 import { StylistSchedulerComponent } from './stylist-scheduler/stylist-scheduler.component';
 import { SchedulerComponent } from './scheduler/scheduler.component';
 import { DialogStylistWorkingComponent } from './dialogs/dialog-stylist-working/dialog-stylist-working.component';
-import { DatePipe } from '@angular/common';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 import { EmployeeComponent } from './employee/employee.component';
 import { ProfileComponent } from './profile/profile.component';
 import { InvalidPermissionComponent } from './invalid-permission/invalid-permission.component';
@@ -136,8 +137,10 @@ import 'hammerjs';
     SchedulerModule,
     MatTooltipModule,
     ChartsModule,
+    MatButtonToggleModule,
   ],
   providers: [
+    CurrencyPipe,
     DateTimePipe,
     DatePipe,
     AuthenticationService,
