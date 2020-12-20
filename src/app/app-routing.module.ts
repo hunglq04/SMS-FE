@@ -8,6 +8,8 @@ import { AuthGuardService } from './service/auth-guard.service';
 import { BookingComponent } from './booking/booking.component';
 import { ProductsComponent } from './products/products.component';
 import { ServicesComponent } from './services/services.component';
+import { EmployeeComponent } from './employee/employee.component';
+import { OrderComponent } from './order/order.component';
 
 const routes: Routes =
   [
@@ -19,6 +21,8 @@ const routes: Routes =
     { path: 'booking', component: BookingComponent, canActivate: [AuthGuardService] },
     { path: 'product', component: ProductsComponent, canActivate: [AuthGuardService] },
     { path: 'service', component: ServicesComponent, canActivate: [AuthGuardService] },
+    { path: 'employee', component: EmployeeComponent, canActivate: [AuthGuardService] },
+    { path: 'order', component: OrderComponent, canActivate: [AuthGuardService] },
   ]
 
 @NgModule({

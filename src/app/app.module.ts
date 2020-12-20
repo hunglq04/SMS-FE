@@ -21,6 +21,7 @@ import { SalonService } from './service/salon.service';
 import { BookingService } from './service/booking.service';
 import { ProductService } from './service/product.service';
 import { ServiceService } from './service/service.service';
+import { OrderService } from './service/order.service';
 
 //Material components
 import { MatDialogModule } from '@angular/material/dialog';
@@ -59,6 +60,9 @@ import { ServicesComponent } from './services/services.component';
 import { DialogNewProductComponent } from './dialogs/dialog-new-product/dialog-new-product.component';
 import { DialogNewServiceComponent } from './dialogs/dialog-new-service/dialog-new-service.component';
 import { DialogBillInfoComponent } from './dialogs/dialog-bill-info/dialog-bill-info.component';
+import { EmployeeComponent } from './employee/employee.component';
+import { OrderComponent } from './order/order.component';
+import { DialogOrderInfoComponent } from './dialogs/dialog-order-info/dialog-order-info.component';
 
 @NgModule({
   declarations: [
@@ -84,6 +88,9 @@ import { DialogBillInfoComponent } from './dialogs/dialog-bill-info/dialog-bill-
     DialogNewProductComponent,
     DialogNewServiceComponent,
     DialogBillInfoComponent,
+    EmployeeComponent,
+    OrderComponent,
+    DialogOrderInfoComponent,
   ],
   imports: [
     BrowserModule,
@@ -117,6 +124,7 @@ import { DialogBillInfoComponent } from './dialogs/dialog-bill-info/dialog-bill-
     SalonService,
     ProductService,
     ServiceService,
+    OrderService,
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
     BookingService,
   ],
