@@ -26,4 +26,8 @@ export class SalonService {
   getAllService() {
     return this.httpClient.get<any>(`${environment.baseUrl}/client/service/booking`).toPromise();
   }
+
+  getSalonStatistic(salonId, date, monthYear, year) {
+    return this.httpClient.get<any>(`${environment.internalApiUrl}/salon/statistic?salonId=${salonId}&date=${date}&monthYear=${monthYear}&year=${year}`).toPromise();
+  }
 }

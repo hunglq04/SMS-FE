@@ -5,10 +5,11 @@ import { map, startWith } from 'rxjs/operators';
 import { ProductService } from 'src/app/service/product.service'
 import { ProductType } from 'src/app/model/product-type.model'
 import { NewProduct } from 'src/app/model/new-product.model';
-import { ActivatedRoute } from '@angular/router';
+
 import * as $ from 'jquery';
 import 'bootstrap-notify';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { async } from 'rxjs/internal/scheduler/async';
 
 @Component({
   selector: 'app-dialog-new-product',
@@ -21,12 +22,11 @@ export class DialogNewProductComponent implements OnInit {
   filteredProductType: Observable<Array<ProductType>>;
   product: any;
   errorMessage = '';
-  isEditProduct = false;
   dialogTitle = '';
   constructor(
     private productService: ProductService,
     private fb: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public data: number
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) { }
 
   ngOnInit() {
@@ -38,9 +38,8 @@ export class DialogNewProductComponent implements OnInit {
       productType: ['', Validators.required],
     });
     this.getProductType();
-
-    console.log(this.product)
-    if (this.data == -1) {
+    console.log(this.productTypes);
+    if (this.data.id == -1) {
       this.dialogTitle = 'Thêm sản phẩm';
     }
     else {
@@ -49,10 +48,9 @@ export class DialogNewProductComponent implements OnInit {
     }
   }
   getProductById() {
-    this.productService.getProductId(this.data)
+    this.productService.getProductId(this.data.id)
       .then(res => {
         this.product = res;
-        console.log(this.product)
         this.productForm.controls['name'].setValue(this.product.name);
         this.productForm.controls['price'].setValue(this.product.price);
         this.productForm.controls['imageUrl'].setValue(this.product.image);
@@ -68,7 +66,7 @@ export class DialogNewProductComponent implements OnInit {
           .pipe(
             startWith(''),
             map(value => typeof value === 'string' ? value : value.name),
-            map(name => name ? this.filterProvince(name) : this.productTypes.slice())
+            map(name => name ? this.filterProductType(name) : this.productTypes.slice())
           );
       })
   }
@@ -77,29 +75,29 @@ export class DialogNewProductComponent implements OnInit {
     return option && option.name ? option.name : '';
   }
 
-  filterProvince(name: string): ProductType[] {
+  filterProductType(name: string): ProductType[] {
     const filterValue = name.toLowerCase();
     return this.productTypes.filter(option => option.name.toLowerCase().includes(filterValue));
   }
+
   getImageUrl(imageUrl) {
     this.productForm.get('imageUrl').setValue(imageUrl);
   }
   saveProduct() {
-    if (this.data == -1) {
+    if (this.data.id == -1) {
       if (!this.errorMessage) {
         let product = new NewProduct(
           this.productForm.get('productType').value['id'],
           this.productForm.get('name').value,
           this.productForm.get('price').value,
-          this.productForm.get('description').value,
-          this.productForm.get('imageUrl').value
+          this.productForm.get('imageUrl').value,
+          this.productForm.get('description').value
         )
-
         this.productService.addNewProduct(product)
           .then(() => {
             this.showNotification("done", "Thêm thành công", "success", "top", "center");
           })
-        window.location.reload();
+        // window.location.reload();
       }
     } else {
       if (!this.errorMessage) {
@@ -107,12 +105,11 @@ export class DialogNewProductComponent implements OnInit {
           this.productForm.get('productType').value['id'],
           this.productForm.get('name').value,
           this.productForm.get('price').value,
-          this.productForm.get('description').value,
-          this.productForm.get('imageUrl').value
+          this.productForm.get('imageUrl').value,
+          this.productForm.get('description').value
         )
-        this.productService.updateProduct(product, this.data)
+        this.productService.updateProduct(product, this.data.id)
           .then(() => {
-            window.location.reload();
             this.showNotification("done", "Cập nhật thành công", "success", "top", "center");
           })
 

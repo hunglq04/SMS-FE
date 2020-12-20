@@ -1,0 +1,45 @@
+<button class="close text-right" mat-button mat-dialog-close>
+  <i class="material-icons">close</i>
+</button>
+<h2 mat-dialog-title>Thông tin thanh toán</h2>
+<mat-dialog-content>
+    <div class="card">
+        <div class="card-body">
+            <h3 style="text-decoration: underline"><strong>Thông tin khách hàng</strong></h3>
+            <p><strong>Tên khách hàng:</strong> {{order?.name}}</p>
+            <p><strong>Email:</strong> {{order?.email}}</p>
+            <p><strong>Số điện thoại</strong> {{order?.phone}}</p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h3 style="text-decoration: underline"><strong>Sản phẩm đặt mua</strong></h3>
+            <table class="table mt-3">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Hình ảnh</th>
+                        <th scope="col">Sản phẩm</th>
+                        <th scope="col">Giá tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of order.products">
+                        <td style="max-width: 30px !important; min-width: 20px!important;">
+                            <img class="img-fluid" [src]="product.product.image" alt="product.id">
+                        </td>
+                        <td>{{product.product.name}}</td>
+                        <td>{{product.price | currency: 'VND'}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Tổng tiền</th>
+                        <th scope="row">{{order.total | currency: 'VND'}}</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end" [ngSwitch]="order.orderStatus">
+    <button *ngSwitchCase="'NEW'" mat-button (click)="confirmOrder()" class="btn btn-primary" mat-button mat-dialog-close="true" cdkFocusInitial>Xác nhận đơn hàng</button>
+    <button *ngSwitchCase="'CONFIRMED'" mat-button (click)="confirmCompletedOrder()" class="btn btn-primary" mat-button mat-dialog-close="true" cdkFocusInitial>Xác nhận đã giao hàng</button>
+</mat-dialog-actions>

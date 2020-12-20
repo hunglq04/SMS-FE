@@ -4,7 +4,7 @@
             <h4 class="card-title ">Danh sách các Sản phẩm</h4>
         </div>
         <div class="col-md-6 text-right">
-            <a (click)="openDialog(addProductId)" data-toggle="tooltip" title="Thêm mới" class="btn btn-success btn-round btn-just-icon">
+            <a (click)="openDialog(addProductId, addProductId)" data-toggle="tooltip" title="Thêm mới" class="btn btn-success btn-round btn-just-icon">
                 <i class="material-icons">add</i>
             </a>
         </div>
@@ -16,6 +16,7 @@
                     <th>ID</th>
                     <th>Hình ảnh</th>
                     <th>Tên</th>
+                    <th>Loại sản phẩm</th>
                     <th>Giá</th>
                     <th>Mô tả</th>
                     <th></th>
@@ -29,15 +30,16 @@
                                 <img *ngIf="!product.image" class="img-fluid" src="../../assets/images/NoImage.png" alt="product.id">
                             </td>
                             <td>{{product.name}}</td>
-                            <td>{{product.price}}</td>
+                            <td>{{product.productType}}</td>
+                            <td>{{product.price | currency : "VND"}}</td>
                             <td>{{product.description}}</td>
-                            <td><a href="javascript:void(0)" (click)="openDialog(product.id)"><i class="material-icons">edit</i></a></td>
+                            <td><a href="javascript:void(0)" (click)="openDialog(product.id, product.image)"><i class="material-icons">edit</i></a></td>
                             <td><a href="javascript:void(0)" (click)='deleteProduct(product.id)'><i class="material-icons">delete</i></a></td>
                         </tr>
                     </ng-container>
                 </tbody>
             </table>
         </div>
-        <app-pagination></app-pagination>
+        <app-pagination [page]="page" (newPage)="pageChange($event)"></app-pagination>
     </div>
 </div>

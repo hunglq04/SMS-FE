@@ -1,0 +1,62 @@
+<div class="card">
+    <div class="card-header card-header-primary row">
+        <div class="col-md-10">
+            <h3 class="card-title ">Danh sách đơn hàng</h3>
+            <div class="card-title ">
+                <div class="row">
+                    <div class="col-md-6 form-group row">
+                        <h4 class="col-sm-3 text-white text-md-right">Từ ngày</h4>
+                        <div class="col-sm-9">
+                            <input type="datetime-local" class="form-control" [(ngModel)]="fromDate" (change)="getAllOrder()" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2 text-right">
+            <a data-toggle="tooltip" title="Thêm mới" class="btn btn-success btn-round btn-just-icon">
+                <i class="material-icons">add</i>
+            </a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table">
+                <thead class=" text-primary">
+                    <th>Thời gian</th>
+                    <th>Khách hàng</th>
+                    <th>Địa chỉ</th>
+                    <th>Tổng tiền</th>
+                    <th>Trạng thái</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    <tr *ngIf="orders.length === 0">
+                        <td colspan="8">
+                            <div class="alert alert-secondary" role="alert">Không có dữ liệu phù hợp...</div>
+                        </td>
+                    </tr>
+                    <ng-container *ngFor="let order of orders">
+                        <tr>
+                            <td>{{order.date | date: "short"}}</td>
+                            <td>{{order.name}}</td>
+                            <td>{{order.address}}</td>
+                            <td>{{order.total | currency: "VND"}}</td>
+                            <td [ngSwitch]="order.orderStatus">
+                                <span *ngSwitchCase="'NEW'" class="badge badge-warning text-grey">Đang chờ xử lý</span>
+                                <span *ngSwitchCase="'CONFIRMED'" class="badge badge-info text-grey">Đang giao hàng</span>
+                                <span *ngSwitchCase="'COMPLETED'" class="badge badge-success text-grey">Đã nhận hàng</span>
+                            </td>
+                            <td>
+                                <a class="btn btn-outline-danger btn-just-icon" (click)="openDialog(order.orderId)" data-toggle="tooltip" data-placement="top" title="Thanh toán">
+                                    <i class="material-icons text-lg">published_with_changes</i>
+                                </a>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+        <app-pagination [page]="page" (newPage)="pageChange($event)"></app-pagination>
+    </div>
+</div>

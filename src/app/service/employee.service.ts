@@ -19,6 +19,10 @@ export class EmployeeService {
               .toPromise();
   }
 
+  getAllEmployyBySalon(pageOffset, pageSize, salonId) {
+    return this.httpClient.get<any>(`${environment.internalApiUrl}/employee?pageOffset=${pageOffset}&pageSize=${pageSize}&salonId=${salonId}`).toPromise()
+  }
+
   getStylistScheduler(date) {
     return this.httpClient.get<any>(`${environment.internalApiUrl}/employee/stylist/scheduler?date=${date}`)
               .toPromise();

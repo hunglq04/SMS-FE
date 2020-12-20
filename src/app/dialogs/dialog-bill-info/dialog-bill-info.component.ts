@@ -14,6 +14,7 @@ export class DialogBillInfoComponent implements OnInit {
   customer: any;
   walkInGuest = '';
   address = '';
+  status = '';
 
   constructor(
     private utilsService: UtilsService,
@@ -22,10 +23,11 @@ export class DialogBillInfoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.status = this.data.billInfo.bookingStatus
     this.services = this.data.billInfo.services;
     this.customer = this.data.billInfo.customer;
     this.walkInGuest = this.data.billInfo.walkInGuest;
-    this.address = `${this.data.billInfo.salon.street}, ${this.data.billInfo.salon.ward}, ${this.data.billInfo.salon.district}, ${this.data.billInfo.salon.province}`; 
+    this.address = `${this.data.billInfo.salon.street}, ${this.data.billInfo.salon.ward}, ${this.data.billInfo.salon.district}, ${this.data.billInfo.salon.province}`;
     console.log(this.data.billInfo);
   }
 

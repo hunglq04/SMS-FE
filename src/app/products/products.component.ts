@@ -4,6 +4,7 @@ import { DialogNewProductComponent } from '../dialogs/dialog-new-product/dialog-
 import { ProductService } from '../service/product.service';
 import { Product } from '../model/product.model';
 import { Page } from '../model/page.model';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-products',
@@ -11,9 +12,8 @@ import { Page } from '../model/page.model';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
-  products: Array<Product>;
+  products: any;
   page: Page;
-  pageOffset = 0;
   addProductId = -1;
   constructor(
     public dialog: MatDialog,
@@ -21,27 +21,34 @@ export class ProductsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getProduct();
-
+    this.getProduct(0);
   }
 
-  openDialog(id) {
+  openDialog(id, imageUrl) {
     const dialogRef = this.dialog.open(DialogNewProductComponent, {
-      data: id
+      data: {
+        id: id,
+        imageUrl: imageUrl
+      },
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
   }
-  editProduct(id) {
-  }
-  getProduct() {
-    return this.productService.getProduct()
+
+  getProduct(pageOffset) {
+    return this.productService.getProduct(pageOffset, 10)
       .then(res => {
-        this.products = res;
+        this.products = res["content"];
+        this.page = new Page(res);
       })
   }
+
+  pageChange(page) {
+    this.getProduct(page);
+  }
+
   deleteProduct(id) {
     this.productService.deleteProduct(id)
       .then(res => console.log(res))

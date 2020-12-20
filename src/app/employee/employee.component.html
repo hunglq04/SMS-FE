@@ -1,1 +1,61 @@
-<p>employee works!</p>
+<div class="card">
+    <div class="card-header card-header-primary row">
+        <div class="col-md-10">
+            <h3 class="card-title ">Danh sách nhân viên</h3>
+            <div class="card-title ">
+                <div class="row">
+                    <div *ngIf="salons.length > 1" class="col-md-6 form-group row">
+                        <h4 class="col-sm-3 text-white text-md-right">Salon</h4>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" placeholder="Địa chỉ salon" matInput [matAutocomplete]="auto2" [formControl]="salonCtrl">
+                        </div>
+                        <mat-autocomplete #auto2="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onSalonChange($event.option.value.id)">
+                            <mat-option *ngFor="let option of filteredSalons | async" [value]="option">
+                                <img *ngIf="!option.image" class="example-option-img" aria-hidden src="../../assets/images/NoImage.png" height="25">
+                                <img *ngIf="option.image" class="example-option-img" aria-hidden [src]="option.image" height="25">
+                                <small> {{option.street}}, {{option.district}}, {{option.province}} </small>
+                            </mat-option>
+                        </mat-autocomplete>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table">
+                <thead class=" text-primary">
+                    <th>ID</th>
+                    <th>Hình ảnh</th>
+                    <th>Name</th>
+                    <th>Chức vụ</th>
+                    <th>CMND</th>
+                    <th>Số điện thoại</th>
+                    <th>Địa chỉ</th>
+                    <!-- <th>Lương</th>
+                    <th>Đánh giá</th> -->
+                    <th></th>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let employee of employes">
+                        <tr>
+                            <td>{{employee.id}}</td>
+                            <td style="max-width: 30px !important; min-width: 70px!important;">
+                                <img *ngIf="employee.avatar" class="img-fluid" [src]="employee.avatar" alt="employee.id">
+                                <img *ngIf="!employee.avatar" class="img-fluid" src="../../assets/images/NoImage.png" alt="employee.id">
+                            </td>
+                            <td>{{employee.name}}</td>
+                            <td>{{employee.account.roles[0].name}}</td>
+                            <td>{{employee.idCard}}</td>
+                            <td>{{employee.phoneNumber}}</td>
+                            <td>{{employee.address}}</td>
+                            <!-- <td>{{employee.salary}}</td>
+                            <td>{{employee.avgRating}}</td> -->
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+        <app-pagination [page]="page" (newPage)="pageChange($event)"></app-pagination>
+    </div>
+</div>

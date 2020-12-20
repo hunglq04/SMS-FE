@@ -1,5 +1,35 @@
 <div>
     <div class="container-fluid">
+        <div class="card" style="background-color: transparent !important;">
+            <div class="card-header-primary">
+                <div class="row">
+                    <div class="col-lg-2 d-flex align-items-center" style="font-size: 16px !important; font-weight: 400 !important">
+                        Thống kê theo
+                    </div>
+
+                    <div class="col-lg-4 d-flex align-items-center form-group row">
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" placeholder="Địa chỉ salon" matInput [matAutocomplete]="auto2" [formControl]="salonCtrl">
+                        </div>
+                        <mat-autocomplete #auto2="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onSalonChange($event.option.value.id)">
+                            <mat-option *ngFor="let option of filteredSalons | async" [value]="option">
+                                <img *ngIf="!option.image" class="example-option-img" aria-hidden src="../../assets/images/NoImage.png" height="25">
+                                <img *ngIf="option.image" class="example-option-img" aria-hidden [src]="option.image" height="25">
+                                <small> {{option.street}}, {{option.district}}, {{option.province}} </small>
+                            </mat-option>
+                        </mat-autocomplete>
+                    </div>
+                    <div class="col-lg-6 text-right">
+                        <div class="btn-group" role="group">
+                            <input type="date" class="form-control" [(ngModel)]="currDate" (change)="searchDateChange()">
+                            <button type="button" (click)="switchDate(0)" [className]="date ? 'btn btn-sm btn-primary' : 'btn btn-sm btn-secondary'">Ngày</button>
+                            <button type="button" (click)="switchDate(1)" [className]="monthYear ? 'btn btn-sm btn-primary' : 'btn btn-sm btn-secondary'">Tháng</button>
+                            <button type="button" (click)="switchDate(2)" [className]="year ? 'btn btn-sm btn-primary' : 'btn btn-sm btn-secondary'">Năm</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats">
@@ -8,14 +38,12 @@
                             <i class="material-icons">local_atm</i>
                         </div>
                         <p class="card-category">Doanh thu</p>
-                        <h3 class="card-title">4.450.000
-                            <!-- <small>VND</small> -->
-                        </h3>
+                        <h3 class="card-title">{{revenue | currency: 'VND'}}</h3>
                     </div>
                     <div class="card-footer">
-                        <div class="stats">
+                        <!-- <div class="stats">
                             <i class="material-icons">date_range</i> 24 giờ qua
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -26,12 +54,12 @@
                             <i class="material-icons">store</i>
                         </div>
                         <p class="card-category">Lượt khách</p>
-                        <h3 class="card-title">30</h3>
+                        <h3 class="card-title">{{customers}}</h3>
                     </div>
                     <div class="card-footer">
-                        <div class="stats">
+                        <!-- <div class="stats">
                             <i class="material-icons">date_range</i> 24 giờ qua
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -41,13 +69,13 @@
                         <div class="card-icon">
                             <i class="material-icons">receipt_long</i>
                         </div>
-                        <p class="card-category">Đơn hàng</p>
-                        <h3 class="card-title">14</h3>
+                        <p class="card-category">Đơn hàng đã giao</p>
+                        <h3 class="card-title">{{completedOrders}}</h3>
                     </div>
                     <div class="card-footer">
-                        <div class="stats">
+                        <!-- <div class="stats">
                             <i class="material-icons">date_range</i> 24 giờ qua
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -55,58 +83,62 @@
                 <div class="card card-stats">
                     <div class="card-header card-header-info card-header-icon">
                         <div class="card-icon">
-                            <i class="material-icons">group</i>
+                            <i class="material-icons">notifications</i>
                         </div>
-                        <p class="card-category">Khách mới</p>
-                        <h3 class="card-title">+15</h3>
+                        <p class="card-category">Đơn hàng mới</p>
+                        <h3 class="card-title">+{{newOrders}}</h3>
                     </div>
                     <div class="card-footer">
-                        <div class="stats">
-                            <i class="material-icons">update</i> Just Updated
-                        </div>
+                        <!-- <div class="stats">
+                            <i class="material-icons">date_range</i> 24 giờ qua
+                        </div> -->
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="card card-chart">
                     <div class="card-header card-header-success">
-                        <h4 class="card-title">Lượt khách</h4>
+                        <h4 class="card-title">Doanh thu từ dịch vụ trong tuần</h4>
                         <p class="card-category">
-                            <span class="text-white"><i class="fa fa-long-arrow-up"></i> 55% </span> tăng so với tuần trước</p>
+                            <!-- <span class="text-white"><i class="fa fa-long-arrow-up"></i> 55% </span> tăng so với tuần trước</p> -->
 
                     </div>
                     <div class="card-body">
                         <kendo-chart>
-                            <kendo-chart-title text="Lượt khách trong tuần"></kendo-chart-title>
+                            <kendo-chart-title></kendo-chart-title>
                             <kendo-chart-category-axis>
-                                <kendo-chart-category-axis-item [categories]="['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN']" [title]="{ text: 'Tuần' }">
+                                <kendo-chart-category-axis-item [categories]="categories" [title]="{ text: '' }">
                                 </kendo-chart-category-axis-item>
                             </kendo-chart-category-axis>
+                            <kendo-chart-legend position="bottom" orientation="horizontal">
+                            </kendo-chart-legend>
                             <kendo-chart-series>
-                                <kendo-chart-series-item type="line" [data]="[123, 276, 310, 212, 240, 156, 98]">
+                                <kendo-chart-series-item type="column" name="Doanh thu" [data]="series">
+                                    <kendo-chart-series-item-tooltip format="Tổng tiền: {0}">
+                                    </kendo-chart-series-item-tooltip>
                                 </kendo-chart-series-item>
-                                <kendo-chart-series-item type="line" [data]="[165, 210, 287, 144, 190, 167, 212]">
-                                </kendo-chart-series-item>
-                                <kendo-chart-series-item type="line" [data]="[56, 140, 195, 46, 123, 78, 95]">
+                                <kendo-chart-series-item type="line" name="Lũy kế" [data]="seriesSum">
+                                    <kendo-chart-series-item-tooltip format="Tổng tiền: {0}">
+                                    </kendo-chart-series-item-tooltip>
                                 </kendo-chart-series-item>
                             </kendo-chart-series>
                         </kendo-chart>
                     </div>
                     <div class="card-footer">
-                        <div class="stats">
+                        <!-- <div class="stats">
                             <i class="material-icons">access_time</i> updated 4 minutes ago
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="card card-chart">
                     <div class="card-header card-header-warning">
                         <h4 class="card-title">Top dịch vụ được đặt nhiều nhất</h4>
                         <p class="card-category">
-                            <span class="text-white"><i class="fa fa-long-arrow-up"></i> TOP 1: </span> Shine combo (20 lượt đặt)</p>
+                            <!-- <span class="text-white"><i class="fa fa-long-arrow-up"></i> TOP 1: </span> Shine combo (20 lượt đặt)</p> -->
                     </div>
                     <div class="card-body">
                         <kendo-chart>
@@ -116,54 +148,58 @@
                                     </kendo-chart-series-item-labels>
                                 </kendo-chart-series-item>
                             </kendo-chart-series>
-                            <kendo-chart-legend [visible]="false"></kendo-chart-legend>
+                            <kendo-chart-legend [visible]="true"></kendo-chart-legend>
                         </kendo-chart>
                     </div>
                     <div class="card-footer">
-                        <div class="stats">
+                        <!-- <div class="stats">
                             <i class="material-icons">access_time</i> campaign sent 2 days ago
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="card card-chart">
                     <div class="card-header card-header-danger">
-                        <h4 class="card-title">Lượt khách</h4>
+                        <h4 class="card-title">Doanh thu từ bán hàng trong tuần</h4>
                         <p class="card-category">
-                            <span class="text-white"><i class="fa fa-long-arrow-up"></i> 55% </span> tăng so với tuần trước</p>
+                            <!-- <span class="text-white"><i class="fa fa-long-arrow-up"></i> 55% </span> tăng so với tuần trước</p> -->
 
                     </div>
                     <div class="card-body">
                         <kendo-chart>
                             <kendo-chart-title text="Số đơn hàng trong tuần"></kendo-chart-title>
                             <kendo-chart-category-axis>
-                                <kendo-chart-category-axis-item [categories]="['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN']" [title]="{ text: 'Tuần' }">
+                                <kendo-chart-category-axis-item [categories]="categories" [title]="{ text: '' }">
                                 </kendo-chart-category-axis-item>
                             </kendo-chart-category-axis>
+                            <kendo-chart-legend position="bottom" orientation="horizontal">
+                            </kendo-chart-legend>
                             <kendo-chart-series>
-                                <kendo-chart-series-item type="area" [data]="[123, 276, 310, 212, 240, 156, 98]">
+                                <kendo-chart-series-item type="column" name="Doanh thu" [data]="series1">
+                                    <kendo-chart-series-item-tooltip format="Tổng tiền: {0}">
+                                    </kendo-chart-series-item-tooltip>
                                 </kendo-chart-series-item>
-                                <kendo-chart-series-item type="area" [data]="[165, 210, 287, 144, 190, 167, 212]">
-                                </kendo-chart-series-item>
-                                <kendo-chart-series-item type="area" [data]="[56, 140, 195, 46, 123, 78, 95]">
+                                <kendo-chart-series-item type="line" name="Lũy kế" [data]="series1Sum">
+                                    <kendo-chart-series-item-tooltip format="Tổng tiền: {0}">
+                                    </kendo-chart-series-item-tooltip>
                                 </kendo-chart-series-item>
                             </kendo-chart-series>
                         </kendo-chart>
                     </div>
                     <div class="card-footer">
-                        <div class="stats">
+                        <!-- <div class="stats">
                             <i class="material-icons">access_time</i> updated 4 minutes ago
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="card card-chart">
                     <div class="card-header card-header-info">
                         <h4 class="card-title">Top sản phẩm được đặt nhiều nhất</h4>
                         <p class="card-category">
-                            <span class="text-white"><i class="fa fa-long-arrow-up"></i> TOP 1: </span> Sáp Reuzel Red Pomade (10 lượt đặt)</p>
+                            <!-- <span class="text-white"><i class="fa fa-long-arrow-up"></i> TOP 1: </span> Sáp Reuzel Red Pomade (10 lượt đặt)</p> -->
                     </div>
                     <div class="card-body">
                         <kendo-chart>
@@ -173,308 +209,16 @@
                                     </kendo-chart-series-item-labels>
                                 </kendo-chart-series-item>
                             </kendo-chart-series>
-                            <kendo-chart-legend [visible]="false"></kendo-chart-legend>
+                            <kendo-chart-legend [visible]="true"></kendo-chart-legend>
                         </kendo-chart>
                     </div>
                     <div class="card-footer">
-                        <div class="stats">
+                        <!-- <div class="stats">
                             <i class="material-icons">access_time</i> campaign sent 2 days ago
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
         </div>
-        <!-- end chart -->
-        <!-- <div class="row">
-            <div class="col-lg-6 col-md-12">
-                <div class="card">
-                    <div class="card-header card-header-tabs card-header-primary">
-                        <div class="nav-tabs-navigation">
-                            <div class="nav-tabs-wrapper">
-                                <span class="nav-tabs-title">Tasks:</span>
-                                <ul class="nav nav-tabs" data-tabs="tabs">
-                                    <li class="nav-item">
-                                        <a mat-button class="nav-link active" href="#profile" data-toggle="tab">
-                                            <i class="material-icons">bug_report</i> Bugs
-                                            <div class="ripple-container"></div>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a mat-button class="nav-link" href="#messages" data-toggle="tab">
-                                            <i class="material-icons">code</i> Website
-                                            <div class="ripple-container"></div>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a mat-button class="nav-link" href="#settings" data-toggle="tab">
-                                            <i class="material-icons">cloud</i> Server
-                                            <div class="ripple-container"></div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="profile">
-                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value="" checked>
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>Sign contract for "What are conference organizers afraid of?"</td>
-                                            <td class="td-actions text-right">
-                                                <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
-                                                    <i class="material-icons">edit</i>
-                                                </button>
-                                                <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                                    <i class="material-icons">close</i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value="">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
-                                            <td class="td-actions text-right">
-                                                <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
-                                                    <i class="material-icons">edit</i>
-                                                </button>
-                                                <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                                    <i class="material-icons">close</i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value="">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-                                            </td>
-                                            <td class="td-actions text-right">
-                                                <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
-                                                    <i class="material-icons">edit</i>
-                                                </button>
-                                                <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                                    <i class="material-icons">close</i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value="" checked>
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>Create 4 Invisible User Experiences you Never Knew About</td>
-                                            <td class="td-actions text-right">
-                                                <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
-                                                    <i class="material-icons">edit</i>
-                                                </button>
-                                                <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                                    <i class="material-icons">close</i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="tab-pane" id="messages">
-                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value="" checked>
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-                                            </td>
-                                            <td class="td-actions text-right">
-                                                <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
-                                                    <i class="material-icons">edit</i>
-                                                </button>
-                                                <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                                    <i class="material-icons">close</i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value="">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>Sign contract for "What are conference organizers afraid of?"</td>
-                                            <td class="td-actions text-right">
-                                                <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
-                                                    <i class="material-icons">edit</i>
-                                                </button>
-                                                <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                                    <i class="material-icons">close</i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="tab-pane" id="settings">
-                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value="">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
-                                            <td class="td-actions text-right">
-                                                <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
-                                                    <i class="material-icons">edit</i>
-                                                </button>
-                                                <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                                    <i class="material-icons">close</i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value="" checked>
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-                                            </td>
-                                            <td class="td-actions text-right">
-                                                <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
-                                                    <i class="material-icons">edit</i>
-                                                </button>
-                                                <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                                    <i class="material-icons">close</i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value="" checked>
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>Sign contract for "What are conference organizers afraid of?"</td>
-                                            <td class="td-actions text-right">
-                                                <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
-                                                    <i class="material-icons">edit</i>
-                                                </button>
-                                                <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                                    <i class="material-icons">close</i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-12">
-                <div class="card">
-                    <div class="card-header card-header-warning">
-                        <h4 class="card-title">Employees Stats</h4>
-                        <p class="card-category">New employees on 15th September, 2016</p>
-                    </div>
-                    <div class="card-body table-responsive">
-                        <table class="table table-hover">
-                            <thead class="text-warning">
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Salary</th>
-                                <th>Country</th>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Dakota Rice</td>
-                                    <td>$36,738</td>
-                                    <td>Niger</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Minerva Hooper</td>
-                                    <td>$23,789</td>
-                                    <td>Curaçao</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Sage Rodriguez</td>
-                                    <td>$56,142</td>
-                                    <td>Netherlands</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>Philip Chaney</td>
-                                    <td>$38,735</td>
-                                    <td>Korea, South</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div> -->
     </div>
 </div>

@@ -23,6 +23,7 @@ import { SalonService } from './service/salon.service';
 import { BookingService } from './service/booking.service';
 import { ProductService } from './service/product.service';
 import { ServiceService } from './service/service.service';
+import { OrderService } from './service/order.service';
 import { AuthAdminService } from './service/auth-admin.service';
 import { AuthManagerService } from './service/auth-manager.service';
 
@@ -38,6 +39,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 //Custom pipe
 import { TotalServicePricePipe } from './pipe/total-service-price.pipe';
@@ -66,8 +68,10 @@ import { DialogNewServiceComponent } from './dialogs/dialog-new-service/dialog-n
 import { DialogBillInfoComponent } from './dialogs/dialog-bill-info/dialog-bill-info.component';
 import { StylistSchedulerComponent } from './stylist-scheduler/stylist-scheduler.component';
 import { SchedulerComponent } from './scheduler/scheduler.component';
+import { OrderComponent } from './order/order.component';
+import { DialogOrderInfoComponent } from './dialogs/dialog-order-info/dialog-order-info.component';
 import { DialogStylistWorkingComponent } from './dialogs/dialog-stylist-working/dialog-stylist-working.component';
-import { DatePipe } from '@angular/common';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 import { EmployeeComponent } from './employee/employee.component';
 import { ProfileComponent } from './profile/profile.component';
 import { InvalidPermissionComponent } from './invalid-permission/invalid-permission.component';
@@ -112,6 +116,8 @@ import 'hammerjs';
     InvalidPermissionComponent,
     InternalErrorComponent,
     NotFoundComponent,
+    OrderComponent,
+    DialogOrderInfoComponent,
   ],
   imports: [
     BrowserModule,
@@ -136,8 +142,10 @@ import 'hammerjs';
     SchedulerModule,
     MatTooltipModule,
     ChartsModule,
+    MatButtonToggleModule,
   ],
   providers: [
+    CurrencyPipe,
     DateTimePipe,
     DatePipe,
     AuthenticationService,
@@ -150,6 +158,7 @@ import 'hammerjs';
     SalonService,
     ProductService,
     ServiceService,
+    OrderService,
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
     BookingService,
     AuthAdminService,
