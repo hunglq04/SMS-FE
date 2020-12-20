@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import {Location} from '@angular/common';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../service/authentication.service';
 
 @Component({
   selector: 'app-navbar',
@@ -13,7 +14,8 @@ export class NavbarComponent implements OnInit {
     private toggleButton: any;
     private sidebarVisible: boolean;
 
-    constructor(location: Location,  private element: ElementRef, private router: Router) {
+    constructor(location: Location,  private element: ElementRef, private router: Router,
+        private authenService: AuthenticationService) {
       this.location = location;
           this.sidebarVisible = false;
     }
@@ -108,7 +110,24 @@ export class NavbarComponent implements OnInit {
 
     getTitle(){
       let path = this.location.prepareExternalUrl(this.location.path());
-      let title = path.split('/')[1] || 'Dashboard';
-      return title.toUpperCase();
+      let title = path.split('/')[1] || 'Tổng quan';
+      return this.transformTitle(title).toUpperCase();
+    }
+
+    transformTitle(title) {
+        switch(title.toLowerCase()) {
+            case 'dashboard': return 'Tổng quan';
+            case 'profile': return 'Thông tin cá nhân';
+            case 'booking': return 'Lịch đặt';
+            case 'product': return 'Sản phẩm';
+            case 'employee': return 'Nhân viên';
+            case 'service': return 'Dịch vụ';
+            case 'schedule': return 'Lịch làm việc';
+            default: return title;
+        }
+    }
+
+    logout() {
+        this.authenService.logOut();
     }
 }

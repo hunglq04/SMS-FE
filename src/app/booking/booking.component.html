@@ -68,8 +68,8 @@
                             <td>{{booking.services | totalServicePrice | currency: "VND"}}</td>
                             <td [ngSwitch]="booking.bookingStatus">
                                 <span *ngSwitchCase="'DONE'" class="badge badge-success">Hoàn thành</span>
-                                <span *ngSwitchCase="'CANCEL'" class="badge badge-danger">Đã hủy</span>
-                                <span *ngSwitchCase="'WAITING'" class="badge badge-warning text-grey">Đang đợi</span>
+                                <span *ngSwitchCase="'CANCEL'" class="badge badge-warning text-grey">Đã hủy</span>
+                                <span *ngSwitchCase="'WAITING'" class="badge badge-danger">Đang đợi</span>
                                 <span *ngSwitchCase="'IN_PROGRESS'" class="badge badge-info">Đang thực hiện</span>
                             </td>
                             <td>

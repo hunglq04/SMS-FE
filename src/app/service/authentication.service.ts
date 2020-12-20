@@ -32,10 +32,11 @@ export class AuthenticationService {
         sessionStorage.removeItem('username');
         sessionStorage.removeItem('token');
         sessionStorage.removeItem('roles');
+        window.location.href = '/login';
     }
 
     extractUserRole() {
-        let roles = JSON.parse(sessionStorage.getItem('roles'))
+        let roles = JSON.parse(sessionStorage.getItem('roles')) || '';
         if (roles.includes(environment.ROLE_ADMIN)) {
             return environment.ROLE_ADMIN;
         } else if (roles.includes(environment.ROLE_MANAGER)) {

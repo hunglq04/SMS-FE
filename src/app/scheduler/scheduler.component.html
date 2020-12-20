@@ -1,0 +1,16 @@
+<div>
+    <kendo-scheduler [kendoSchedulerBinding]="events" [selectedDate]="selectedDate" (dateChange)="changeDate($event)" [eventClass]="getEventClass" (eventClick)="eventClick($event)" style="height: 600px;">
+
+        <kendo-scheduler-day-view [startTime]="startTime"></kendo-scheduler-day-view>
+
+        <!-- <kendo-scheduler-week-view startTime="startTime"></kendo-scheduler-week-view> -->
+
+        <kendo-scheduler-month-view> </kendo-scheduler-month-view>
+
+        <!-- <kendo-scheduler-agenda-view> </kendo-scheduler-agenda-view> -->
+
+        <kendo-scheduler-messages today="Hôm nay" allDay="Thời gian" dayViewTitle="Ngày" agendaViewTitle="Danh sách công việc" weekViewTitle="Tuần" monthViewTitle="Tháng" showWorkDay="Hiện giờ hành chính" showFullDay="Hiện toàn bộ thời gian">
+        </kendo-scheduler-messages>
+
+    </kendo-scheduler>
+</div>

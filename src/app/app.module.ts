@@ -7,6 +7,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { AppFirebaseModule } from './app-firebase.module';
+import { SchedulerModule } from '@progress/kendo-angular-scheduler';
+import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 
 //Services
 import { AuthenticationService } from './service/authentication.service';
@@ -22,6 +24,8 @@ import { BookingService } from './service/booking.service';
 import { ProductService } from './service/product.service';
 import { ServiceService } from './service/service.service';
 import { OrderService } from './service/order.service';
+import { AuthAdminService } from './service/auth-admin.service';
+import { AuthManagerService } from './service/auth-manager.service';
 
 //Material components
 import { MatDialogModule } from '@angular/material/dialog';
@@ -34,6 +38,8 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 //Custom pipe
 import { TotalServicePricePipe } from './pipe/total-service-price.pipe';
@@ -60,9 +66,23 @@ import { ServicesComponent } from './services/services.component';
 import { DialogNewProductComponent } from './dialogs/dialog-new-product/dialog-new-product.component';
 import { DialogNewServiceComponent } from './dialogs/dialog-new-service/dialog-new-service.component';
 import { DialogBillInfoComponent } from './dialogs/dialog-bill-info/dialog-bill-info.component';
-import { EmployeeComponent } from './employee/employee.component';
+import { StylistSchedulerComponent } from './stylist-scheduler/stylist-scheduler.component';
+import { SchedulerComponent } from './scheduler/scheduler.component';
 import { OrderComponent } from './order/order.component';
 import { DialogOrderInfoComponent } from './dialogs/dialog-order-info/dialog-order-info.component';
+import { DialogStylistWorkingComponent } from './dialogs/dialog-stylist-working/dialog-stylist-working.component';
+import { CurrencyPipe, DatePipe } from '@angular/common';
+import { EmployeeComponent } from './employee/employee.component';
+import { ProfileComponent } from './profile/profile.component';
+import { InvalidPermissionComponent } from './invalid-permission/invalid-permission.component';
+import { InternalErrorComponent } from './internal-error/internal-error.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { ChartsModule } from '@progress/kendo-angular-charts';
+import 'hammerjs';
+
+
+
+
 
 @NgModule({
   declarations: [
@@ -88,7 +108,14 @@ import { DialogOrderInfoComponent } from './dialogs/dialog-order-info/dialog-ord
     DialogNewProductComponent,
     DialogNewServiceComponent,
     DialogBillInfoComponent,
+    StylistSchedulerComponent,
+    SchedulerComponent,
+    DialogStylistWorkingComponent,
     EmployeeComponent,
+    ProfileComponent,
+    InvalidPermissionComponent,
+    InternalErrorComponent,
+    NotFoundComponent,
     OrderComponent,
     DialogOrderInfoComponent,
   ],
@@ -110,10 +137,17 @@ import { DialogOrderInfoComponent } from './dialogs/dialog-order-info/dialog-ord
     MaterialFileInputModule,
     MatProgressBarModule,
     MatSnackBarModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    DateInputsModule,
+    SchedulerModule,
+    MatTooltipModule,
+    ChartsModule,
+    MatButtonToggleModule,
   ],
   providers: [
+    CurrencyPipe,
     DateTimePipe,
+    DatePipe,
     AuthenticationService,
     AuthGuardService,
     LoadingService,
@@ -127,6 +161,8 @@ import { DialogOrderInfoComponent } from './dialogs/dialog-order-info/dialog-ord
     OrderService,
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
     BookingService,
+    AuthAdminService,
+    AuthManagerService,
   ],
   bootstrap: [AppComponent]
 })

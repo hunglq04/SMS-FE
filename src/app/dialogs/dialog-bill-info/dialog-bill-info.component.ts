@@ -42,7 +42,6 @@ export class DialogBillInfoComponent implements OnInit {
           address: this.address,
           billNo: billId
         };
-        window.open("https://www.w3schools.com");
         this.utilsService.previewPdfFile(data);
       })
       .catch(err => this.utilsService.showNotification("error_outline", "Có lỗi xãy ra!", "danger", "top", "center"));

@@ -150,4 +150,9 @@ export class UtilsService {
   formatNumber(num) {
     return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(num)
   }
+
+  addHoursToDate(date: Date, hours: number): Date {
+    return new Date(new Date(date).setHours(date.getHours() + hours));
+  }
+
 }  

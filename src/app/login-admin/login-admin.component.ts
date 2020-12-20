@@ -33,7 +33,7 @@ export class LoginAdminComponent implements OnInit {
       .then(res => {
           let role = this.loginService.extractUserRole();
           if (role) {
-            window.location.href = '/dashboard';
+            window.location.href = '/';
           } else {
             this.isShowError = true;
           }
