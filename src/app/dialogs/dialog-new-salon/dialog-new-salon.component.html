@@ -13,7 +13,7 @@
         <div class="row ">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label>Tỉnh thành phố</label>
+                    <label>Người quản lý</label>
                     <input type="text" class="form-control" placeholder="Tên người quản lí" matInput [matAutocomplete]="auto4" formControlName="manager">
                     <mat-autocomplete #auto4="matAutocomplete" [displayWith]="displayFn">
                         <mat-option *ngFor="let option of filteredManagers | async" [value]="option">
@@ -28,7 +28,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label>Đại chỉ</label>
+                    <label>Địa chỉ</label>
                     <input type="text" class="form-control" placeholder="Nhập địa chỉ" formControlName="street" />
                 </div>
                 <div class="form-group">

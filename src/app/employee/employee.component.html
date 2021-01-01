@@ -20,6 +20,11 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-2 text-right">
+            <a data-toggle="tooltip" title="Thêm mới" class="btn btn-success btn-round btn-just-icon">
+                <i class="material-icons">add</i>
+            </a>
+        </div>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -27,7 +32,7 @@
                 <thead class=" text-primary">
                     <th>ID</th>
                     <th>Hình ảnh</th>
-                    <th>Name</th>
+                    <th>Họ tên</th>
                     <th>Chức vụ</th>
                     <th>CMND</th>
                     <th>Số điện thoại</th>
@@ -51,6 +56,10 @@
                             <td>{{employee.address}}</td>
                             <!-- <td>{{employee.salary}}</td>
                             <td>{{employee.avgRating}}</td> -->
+                            <td>
+                                <a href="javascript:void(0)"><i class="material-icons">edit</i></a>
+                            </td>
+                            <td><a href="javascript:void(0)"><i class="material-icons">delete</i></a></td>
                         </tr>
                     </ng-container>
                 </tbody>
