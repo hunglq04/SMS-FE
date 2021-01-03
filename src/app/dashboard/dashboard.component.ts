@@ -16,6 +16,7 @@ export class DashboardComponent implements OnInit {
   customers = 0
   completedOrders = 0
   newOrders = 0
+  title = 'tuần';
 
   public series: any[] = [];
   public seriesSum: any[] = [];
@@ -31,13 +32,13 @@ export class DashboardComponent implements OnInit {
   date = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
   monthYear = ''
   year = ''
-  
+
   salonCtrl = new FormControl();
   salonId = '';
   salons = [];
   filteredSalons: Observable<any[]>;
 
-  constructor( private salonService: SalonService, 
+  constructor( private salonService: SalonService,
     private datePipe: DatePipe,
     private currencyPipe: CurrencyPipe,
   ) { }
@@ -73,6 +74,7 @@ export class DashboardComponent implements OnInit {
   }
 
   buildDataForWeekChart(res) {
+    this.title = 'tuần';
     this.categories = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
     this.series = this.categories.map((el, index) => el = res.customerChart[index + 1] || 0);
     this.seriesSum = this.series.map((sum => value => sum += value)(0));
@@ -81,6 +83,7 @@ export class DashboardComponent implements OnInit {
   }
 
   buildDataForMonth(res) {
+    this.title = 'tháng';
     let date = this.monthYear.split('-');
     let totalDaysInMonth = new Date(Number.parseInt(date[0]), Number.parseInt(date[1]), 0).getDate();
     this.categories = Array.from(Array(totalDaysInMonth).keys()).map(x => x + 1)
@@ -91,6 +94,7 @@ export class DashboardComponent implements OnInit {
   }
 
   buildDataForYear(res) {
+    this.title = 'năm';
     this.categories = ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12'];
     this.series = this.categories.map((el, index) => el = res.customerChart[index + 1] || 0);
     this.seriesSum = this.series.map((sum => value => sum += value)(0));
@@ -100,7 +104,7 @@ export class DashboardComponent implements OnInit {
 
   switchDate(value) {
     switch(value) {
-      case 0: 
+      case 0:
         this.date = this.currDate;
         this.monthYear = this.year = '';
         break;
@@ -146,9 +150,9 @@ export class DashboardComponent implements OnInit {
 
   filterSalon(street: string): any[] {
     const filterValue = street.toLowerCase();
-    return this.salons.filter(option => 
-      option.street.toLowerCase().includes(filterValue) || 
-      option.district.toLowerCase().includes(filterValue) || 
+    return this.salons.filter(option =>
+      option.street.toLowerCase().includes(filterValue) ||
+      option.district.toLowerCase().includes(filterValue) ||
       option.province.toLowerCase().includes(filterValue)
     );
   }

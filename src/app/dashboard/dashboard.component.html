@@ -100,7 +100,7 @@
             <div class="col-md-12">
                 <div class="card card-chart">
                     <div class="card-header card-header-success">
-                        <h4 class="card-title">Doanh thu từ dịch vụ trong tuần</h4>
+                        <h4 class="card-title">Doanh thu từ dịch vụ trong {{title}}</h4>
                         <p class="card-category">
                             <!-- <span class="text-white"><i class="fa fa-long-arrow-up"></i> 55% </span> tăng so với tuần trước</p> -->
 
@@ -133,7 +133,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12" *ngIf="true">
                 <div class="card card-chart">
                     <div class="card-header card-header-warning">
                         <h4 class="card-title">Top dịch vụ được đặt nhiều nhất</h4>
@@ -161,7 +161,7 @@
             <div class="col-md-12">
                 <div class="card card-chart">
                     <div class="card-header card-header-danger">
-                        <h4 class="card-title">Doanh thu từ bán hàng trong tuần</h4>
+                        <h4 class="card-title">Doanh thu từ bán hàng trong {{title}}</h4>
                         <p class="card-category">
                             <!-- <span class="text-white"><i class="fa fa-long-arrow-up"></i> 55% </span> tăng so với tuần trước</p> -->
 
@@ -194,7 +194,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12" *ngIf="true">
                 <div class="card card-chart">
                     <div class="card-header card-header-info">
                         <h4 class="card-title">Top sản phẩm được đặt nhiều nhất</h4>
