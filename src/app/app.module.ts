@@ -9,6 +9,10 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { AppFirebaseModule } from './app-firebase.module';
 import { SchedulerModule } from '@progress/kendo-angular-scheduler';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
+import { AngularFireMessagingModule } from "@angular/fire/messaging";
+import { AngularFireDatabaseModule } from "@angular/fire/database";
+import { AngularFireAuthModule } from "@angular/fire/auth";
+import { AngularFireModule } from "@angular/fire";
 
 //Services
 import { AuthenticationService } from './service/authentication.service';
@@ -26,6 +30,7 @@ import { ServiceService } from './service/service.service';
 import { OrderService } from './service/order.service';
 import { AuthAdminService } from './service/auth-admin.service';
 import { AuthManagerService } from './service/auth-manager.service';
+import { MessagingService } from './service/messaging.service';
 
 //Material components
 import { MatDialogModule } from '@angular/material/dialog';
@@ -79,6 +84,8 @@ import { InternalErrorComponent } from './internal-error/internal-error.componen
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ChartsModule } from '@progress/kendo-angular-charts';
 import 'hammerjs';
+import { from } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -143,6 +150,10 @@ import 'hammerjs';
     MatTooltipModule,
     ChartsModule,
     MatButtonToggleModule,
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    AngularFireMessagingModule,
+    AngularFireModule.initializeApp(environment.firebase),
   ],
   providers: [
     CurrencyPipe,
@@ -163,6 +174,7 @@ import 'hammerjs';
     BookingService,
     AuthAdminService,
     AuthManagerService,
+    MessagingService
   ],
   bootstrap: [AppComponent]
 })
