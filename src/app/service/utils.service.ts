@@ -121,6 +121,16 @@ export class UtilsService {
           }
         },
         {
+          text: 'Thanh toán với ZaloPay',
+          style: 'sectionHeader'
+        },
+        { 
+          qr: `${data.zpCode}`,
+          fit: '150',
+          alignment: 'center',
+          margin: [0, 15,0, 15]
+        },
+        {
           text: `==============================================================================`,
           fontSize: 12,
           alignment: 'center',

@@ -31,14 +31,15 @@ export class DialogBillInfoComponent implements OnInit {
 
   printPdf() {
     this.bookingService.postInvoice(this.data.billInfo.bookingId)
-      .then(billId => {
+      .then(bill => {
         let data = {
           customerName: this.customer?.name || this.walkInGuest,
           email: this.customer?.email,
           contactNo: this.customer?.phone,
           services: this.services,
           address: this.address,
-          billNo: billId
+          billNo: bill.billId,
+          zpCode: `{"zptranstoken":"${bill.zpToken}","appid":554}`
         };
         this.utilsService.previewPdfFile(data);
       })

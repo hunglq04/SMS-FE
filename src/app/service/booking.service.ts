@@ -21,7 +21,7 @@ export class BookingService {
   }
 
   postInvoice(bookingId: number) {
-    return this.httpClient.post<number>(`${environment.internalApiUrl}/booking/${bookingId}/invoice`, null).toPromise();
+    return this.httpClient.post<any>(`${environment.internalApiUrl}/booking/${bookingId}/invoice`, null).toPromise();
   }
 
   startProgress(bookingId) {
