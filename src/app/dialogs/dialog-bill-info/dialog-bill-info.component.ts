@@ -15,6 +15,7 @@ export class DialogBillInfoComponent implements OnInit {
   walkInGuest = '';
   address = '';
   status = '';
+  withZP = false;
 
   constructor(
     private utilsService: UtilsService,
@@ -32,7 +33,7 @@ export class DialogBillInfoComponent implements OnInit {
   }
 
   printPdf() {
-    this.bookingService.postInvoice(this.data.billInfo.bookingId)
+    this.bookingService.postInvoice(this.data.billInfo.bookingId, this.withZP)
       .then(bill => {
         let data = {
           customerName: this.customer?.name || this.walkInGuest,
@@ -43,7 +44,7 @@ export class DialogBillInfoComponent implements OnInit {
           billNo: bill.billId,
           zpCode: `{"zptranstoken":"${bill.zpToken}","appid":554}`
         };
-        this.utilsService.previewPdfFile(data);
+        this.utilsService.previewPdfFile(data, this.withZP);
       })
       .catch(err => this.utilsService.showNotification("error_outline", "Có lỗi xãy ra!", "danger", "top", "center"));
   }

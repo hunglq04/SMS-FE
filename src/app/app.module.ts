@@ -45,6 +45,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 //Custom pipe
 import { TotalServicePricePipe } from './pipe/total-service-price.pipe';
@@ -149,6 +150,7 @@ import { environment } from 'src/environments/environment';
     SchedulerModule,
     MatTooltipModule,
     ChartsModule,
+    MatCheckboxModule,
     MatButtonToggleModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,

@@ -20,8 +20,8 @@ export class BookingService {
     return this.httpClient.post<void>(`${environment.internalApiUrl}/booking`, bookingInfo).toPromise();
   }
 
-  postInvoice(bookingId: number) {
-    return this.httpClient.post<any>(`${environment.internalApiUrl}/booking/${bookingId}/invoice`, null).toPromise();
+  postInvoice(bookingId: number, withZP: boolean) {
+    return this.httpClient.post<any>(`${environment.internalApiUrl}/booking/${bookingId}/invoice?withZP=${withZP}`, null).toPromise();
   }
 
   startProgress(bookingId) {

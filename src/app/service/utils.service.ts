@@ -48,7 +48,103 @@ export class UtilsService {
     });
   }
 
-  previewPdfFile(data) {  
+  previewPdfFile(data, withZP) { 
+    let docNoQRC = {
+      content: [
+        {
+          text: 'V-BARBERSHOP',
+          fontSize: 25,
+          alignment: 'center',
+          color: '#000000'
+        },
+        {
+          text: data.address,
+          fontSize: 12,
+          alignment: 'center',
+          color: '#000000',
+          margin: [0, 15,0, 0]     
+        },
+        {
+          text: `==============================================================================`,
+          fontSize: 12,
+          alignment: 'center',
+          color: '#000000',
+          margin: [0, 15,0, 15]  
+        },
+        {
+          text: 'HÓA ĐƠN THANH TOÁN',
+          fontSize: 20,
+          bold: true,
+          alignment: 'center',
+          decoration: 'underline',
+          color: '000000'
+        },
+        {
+          text: 'Thông tin khách hàng',
+          style: 'sectionHeader'
+        },
+        {
+          columns: [
+            [
+              {
+                text: `Tên khách hàng: ${data.customerName}`,
+                bold:true
+              },
+              { text: data.email ? `Email: ${data.email}` : ''},
+              { text: data.contactNo? `Số điện thoại: ${data.contactNo}` : '' }
+            ],
+            [
+              {
+                text: `Vào: ${new Date().toLocaleString()}`,
+                alignment: 'right'
+              },
+              { 
+                text: `Số phiếu : ${data.billNo}`,
+                alignment: 'right'
+              }
+            ]
+          ]
+        },
+        {
+          text: 'Dịch vụ sử dụng',
+          style: 'sectionHeader'
+        },
+        {
+          table: {
+            headerRows: 1,
+            widths: ['*', 'auto', 'auto', 'auto'],
+            body: [
+              ['Dịch vụ', 'Giá tiền', 'Số lượng', 'Thành tiền'],
+              ...data.services.map(p => ([p.name, this.formatNumber(p.price), 1, this.formatNumber((p.price*1).toFixed(2))])),
+              [{text: 'Tổng cộng', colSpan: 3}, {}, {}, this.formatNumber(data.services.reduce((sum, p)=> sum + (1 * p.price), 0).toFixed(2))]
+            ]
+          }
+        },
+        {
+          text: `==============================================================================`,
+          fontSize: 12,
+          alignment: 'center',
+          color: '#000000',
+          margin: [0, 15,0, 15]  
+        },
+        {
+          text: 'Cảm ơn và hẹn gặp lại quý khách!',
+          fontSize: 16,
+          alignment: 'center',
+          color: '#000000',
+          bold: true
+        },
+      ],
+      styles: {
+        sectionHeader: {
+          bold: true,
+          decoration: 'underline',
+          fontSize: 14,
+          margin: [0, 15,0, 15]          
+        }
+      }
+    };
+
     let docDefinition = {
       content: [
         {
@@ -154,7 +250,9 @@ export class UtilsService {
         }
       }
     };
-    pdfMake.createPdf(docDefinition).print();
+
+    let toPrint = withZP ? docDefinition : docNoQRC;
+    pdfMake.createPdf(toPrint).print();
   } 
 
   formatNumber(num) {

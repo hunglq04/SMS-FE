@@ -36,5 +36,8 @@
     </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button *ngIf="status != 'WAITING'" mat-button (click)="printPdf()" class="btn btn-primary" mat-button mat-dialog-close="true" cdkFocusInitial>In hóa đơn</button>
+    <div *ngIf="status != 'WAITING'">
+        <mat-checkbox class="mr-4" color="primary" [(ngModel)]="withZP">Thanh toán với ZaloPay</mat-checkbox>
+        <button mat-button (click)="printPdf()" class="btn btn-primary" mat-button mat-dialog-close="true" cdkFocusInitial>In hóa đơn</button>
+    </div>
 </mat-dialog-actions>
