@@ -15,6 +15,14 @@ export class SalonService {
     return this.httpClient.post<any>(`${environment.internalApiUrl}/salon`, body).toPromise();
   }
 
+  getSalonInfo(id){
+    return this.httpClient.get<any>(`${environment.internalApiUrl}/salon/${id}`).toPromise();
+  }
+
+  updateSalon(body, id) {
+    return this.httpClient.put<any>(`${environment.internalApiUrl}/salon/${id}`, body).toPromise();
+  }
+
   getSalon(pageOffset, pageSize) {
     return this.httpClient.get<any>(`${environment.internalApiUrl}/salon?pageOffset=${pageOffset}&pageSize=${pageSize}`).toPromise();
   }

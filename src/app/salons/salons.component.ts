@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { DialogNewSalonComponent } from '../dialogs/dialog-new-salon/dialog-new-salon.component';
 import { SalonService } from '../service/salon.service';
 import { Page } from '../model/page.model';
@@ -17,14 +17,16 @@ export class SalonsComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     public salonService: SalonService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-     this.getSalon(0);
+    this.getSalon(0);
   }
 
-  openDialog() {
-    const dialogRef = this.dialog.open(DialogNewSalonComponent);
+  openDialog(salon) {
+    const dialogRef = this.dialog.open(DialogNewSalonComponent, {
+      data: salon
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);

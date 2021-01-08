@@ -4,7 +4,7 @@
             <h4 class="card-title ">Danh sách các Salon</h4>
         </div>
         <div class="col-md-6 text-right">
-            <a (click)="openDialog()" data-toggle="tooltip" title="Thêm mới" class="btn btn-success btn-round btn-just-icon">
+            <a (click)="openDialog(-1)" data-toggle="tooltip" title="Thêm mới" class="btn btn-success btn-round btn-just-icon">
                 <i class="material-icons">add</i>
             </a>
         </div>
@@ -29,7 +29,7 @@
                             </td>
                             <td>{{salon.address}}</td>
                             <td>{{salon.manager}}</td>
-                            <td><a href="javascript:void(0)"><i class="material-icons">edit</i></a></td>
+                            <td><a href="javascript:void(0)" (click)="openDialog(salon)"><i class="material-icons">edit</i></a></td>
                         </tr>
                     </ng-container>
                 </tbody>
