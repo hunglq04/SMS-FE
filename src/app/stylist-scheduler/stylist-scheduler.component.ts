@@ -5,10 +5,10 @@ import { EmployeeService } from '../service/employee.service';
 @Component({
   selector: 'stylist-scheduler',
   templateUrl: './stylist-scheduler.component.html',
-styleUrls: ['./stylist-scheduler.component.scss']
+styleUrls: ['./stylist-scheduler.component.css']
 })
 export class StylistSchedulerComponent implements OnInit {
-  
+
   events: Event[] = [];
   selectedDate = new Date();
 
@@ -42,9 +42,9 @@ export class StylistSchedulerComponent implements OnInit {
       });
     }).catch(err => console.error(err))
   }
-  
+
   dateChange(date) {
     this.getStylistScheduler(date);
   }
-  
+
 }

@@ -11,12 +11,12 @@ export class ProductService {
     private httpClient: HttpClient
   ) { }
 
-  getProduct() {
-    return this.httpClient.get<Array<Product>>(`${environment.baseUrl}/client/product`)
+  getProduct(pageOffset, pageSize) {
+    return this.httpClient.get<any>(`${environment.internalApiUrl}/product?pageOffset=${pageOffset}&pageSize=${pageSize}`)
       .toPromise();
   }
   getProductId(id) {
-    return this.httpClient.get<any>(`${environment.baseUrl}/client/productdetail?id=${id}`)
+    return this.httpClient.get<any>(`${environment.baseUrl}/client/product/detail?id=${id}`)
       .toPromise();
   }
   addNewProduct(body) {

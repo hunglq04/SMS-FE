@@ -5,7 +5,7 @@ import { SalonService } from '../service/salon.service';
 import { map, startWith } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { DialogNewBookingComponent } from '../dialogs/dialog-new-booking/dialog-new-booking.component';
 import { AuthenticationService } from '../service/authentication.service';
 import { environment } from '../../environments/environment';
@@ -51,7 +51,7 @@ export class BookingComponent implements OnInit {
         this.page = new Page(res)
       })
       .catch(err => console.log(err));
-    
+
   }
 
   pageChange(page) {
@@ -69,14 +69,14 @@ export class BookingComponent implements OnInit {
             map(value => typeof value === 'string' ? value : value.street),
             map(street => street ? this.filterSalon(street) : this.salons.slice())
           )
-    }).catch(err => console.log(err))
+      }).catch(err => console.log(err))
   }
 
   filterSalon(street: string): any[] {
     const filterValue = street.toLowerCase();
-    return this.salons.filter(option => 
-      option.street.toLowerCase().includes(filterValue) || 
-      option.district.toLowerCase().includes(filterValue) || 
+    return this.salons.filter(option =>
+      option.street.toLowerCase().includes(filterValue) ||
+      option.district.toLowerCase().includes(filterValue) ||
       option.province.toLowerCase().includes(filterValue)
     );
   }
@@ -94,7 +94,7 @@ export class BookingComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogNewBookingComponent, {
       width: '500px',
       height: 'auto',
-      data: {salons: this.salons}
+      data: { salons: this.salons }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -108,14 +108,14 @@ export class BookingComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogBillInfoComponent, {
       width: '500px',
       height: 'auto',
-      data: {billInfo: this.bookings.filter(item => bookingId === item.bookingId)[0]}
+      data: { billInfo: this.bookings.filter(item => bookingId === item.bookingId)[0] }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.getBookingPage();
       }
-  });
+    });
   }
 
 }

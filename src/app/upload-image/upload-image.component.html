@@ -3,7 +3,8 @@
         <div class="text-center">
             <img *ngIf="imagePreview; else imgPlaceHodler" class="img-fluid" [src]="imagePreview" />
             <ng-template #imgPlaceHodler>
-                <img src="../../assets/images/NoImage.png" class="img-fluid" />
+                <img *ngIf="isImageUrl == '-1' || isImageUrl == '' || isImageUrl == null " src="../../assets/images/NoImage.png" class="img-fluid" />
+                <img *ngIf="isImageUrl != '-1'" src="{{isImageUrl}}" class="img-fluid" />
             </ng-template>
             <ngx-mat-file-input accept="image/*" formControlName="photo" (change)="postImage()">
             </ngx-mat-file-input>

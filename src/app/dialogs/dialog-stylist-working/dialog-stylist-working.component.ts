@@ -14,6 +14,7 @@ export class DialogStylistWorkingComponent implements OnInit {
   image2 = null;
   image3 = null;
   image4 = null;
+  showDemo = false;
 
   constructor(
     public dialogRef: MatDialogRef<DialogStylistWorkingComponent>,
@@ -42,7 +43,7 @@ export class DialogStylistWorkingComponent implements OnInit {
   }
 
   isShowStart(start) {
-    return this.bookingInfo.status === 'WAITING' && start <= new Date();
+    return (this.bookingInfo.status === 'WAITING' && start <= new Date()) || this.showDemo;
   }
 
   startProgress(bookingId) {

@@ -15,6 +15,7 @@ import { EmployeeComponent } from './employee/employee.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { InternalErrorComponent } from './internal-error/internal-error.component';
 import { InvalidPermissionComponent } from './invalid-permission/invalid-permission.component';
+import { OrderComponent } from './order/order.component';
 
 const routes: Routes =
   [
@@ -33,6 +34,7 @@ const routes: Routes =
     { path: 'schedule', component: StylistSchedulerComponent, canActivate: [AuthGuardService] },
     { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService] },
     { path: 'employee', component: EmployeeComponent, canActivate: [AuthAdminService, AuthGuardService] },
+    { path: 'order', component: OrderComponent, canActivate: [AuthGuardService] },
   ]
 
 @NgModule({

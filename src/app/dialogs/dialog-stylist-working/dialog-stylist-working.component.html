@@ -1,7 +1,7 @@
 <button class="close text-right" mat-button mat-dialog-close>
     <i class="material-icons">close</i>
 </button>
-<h2 mat-dialog-title>Thông tin booking</h2>
+<h2 mat-dialog-title (click)="showDemo = !showDemo">Thông tin booking</h2>
 <mat-dialog-content>
     <div class="card">
         <div class="card-body">
@@ -13,8 +13,8 @@
                 <h3 class="col-4">Trạng thái: </h3>
                 <div class="col-8" [ngSwitch]="bookingInfo.status">
                     <span *ngSwitchCase="'DONE'" class="badge badge-success">Hoàn thành</span>
-                    <span *ngSwitchCase="'CANCEL'" class="badge badge-warning text-grey">Đã hủy</span>
-                    <span *ngSwitchCase="'WAITING'" class="badge badge-danger">Đang đợi</span>
+                    <span *ngSwitchCase="'WAITING'" class="badge badge-warning text-grey">Đang đợi</span>
+                    <span *ngSwitchCase="'CANCEL'" class="badge badge-danger">Đã hủy</span>
                     <span *ngSwitchCase="'IN_PROGRESS'" class="badge badge-info">Đang thực hiện</span>
                 </div>
             </div>
@@ -46,5 +46,5 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <button *ngIf="isShowStart(bookingInfo.start)" mat-button class="btn btn-primary" mat-button mat-dialog-close="true" cdkFocusInitial (click)="startProgress(bookingInfo.id)">Bắt đầu</button>
-    <button *ngIf="bookingInfo.status === 'IN_PROGRESS'" mat-button class="btn btn-primary" mat-button mat-dialog-close cdkFocusInitial (click)="finishProgress(bookingInfo.id)">Cập nhật hình ảnh</button>
+    <button *ngIf="bookingInfo.status === 'IN_PROGRESS'" mat-button class="btn btn-primary" mat-button mat-dialog-close="true" cdkFocusInitial (click)="finishProgress(bookingInfo.id)">Cập nhật hình ảnh</button>
 </mat-dialog-actions>

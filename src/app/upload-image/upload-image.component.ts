@@ -23,8 +23,8 @@ export class UploadImageComponent implements OnInit, OnDestroy {
   submitted = false;
   uploadProgress$: Observable<number>;
   toDeleteUrl = '';
+  @Input() isImageUrl: string;
   @Input() folderImage: string;
-
   @Input() imagePreview: string | ArrayBuffer;
   @Output() imageUrl = new EventEmitter();
 
@@ -39,7 +39,6 @@ export class UploadImageComponent implements OnInit, OnDestroy {
     this.pictureForm = this.formBuilder.group({
       photo: [null, [this.image.bind(this)]]
     });
-
     this.pictureForm
       .get('photo')
       .valueChanges.pipe(takeUntil(this.destroy$))

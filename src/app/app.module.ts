@@ -9,6 +9,10 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { AppFirebaseModule } from './app-firebase.module';
 import { SchedulerModule } from '@progress/kendo-angular-scheduler';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
+import { AngularFireMessagingModule } from "@angular/fire/messaging";
+import { AngularFireDatabaseModule } from "@angular/fire/database";
+import { AngularFireAuthModule } from "@angular/fire/auth";
+import { AngularFireModule } from "@angular/fire";
 
 //Services
 import { AuthenticationService } from './service/authentication.service';
@@ -23,8 +27,10 @@ import { SalonService } from './service/salon.service';
 import { BookingService } from './service/booking.service';
 import { ProductService } from './service/product.service';
 import { ServiceService } from './service/service.service';
+import { OrderService } from './service/order.service';
 import { AuthAdminService } from './service/auth-admin.service';
 import { AuthManagerService } from './service/auth-manager.service';
+import { MessagingService } from './service/messaging.service';
 
 //Material components
 import { MatDialogModule } from '@angular/material/dialog';
@@ -67,6 +73,8 @@ import { DialogNewServiceComponent } from './dialogs/dialog-new-service/dialog-n
 import { DialogBillInfoComponent } from './dialogs/dialog-bill-info/dialog-bill-info.component';
 import { StylistSchedulerComponent } from './stylist-scheduler/stylist-scheduler.component';
 import { SchedulerComponent } from './scheduler/scheduler.component';
+import { OrderComponent } from './order/order.component';
+import { DialogOrderInfoComponent } from './dialogs/dialog-order-info/dialog-order-info.component';
 import { DialogStylistWorkingComponent } from './dialogs/dialog-stylist-working/dialog-stylist-working.component';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { EmployeeComponent } from './employee/employee.component';
@@ -76,6 +84,8 @@ import { InternalErrorComponent } from './internal-error/internal-error.componen
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ChartsModule } from '@progress/kendo-angular-charts';
 import 'hammerjs';
+import { from } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -113,6 +123,8 @@ import 'hammerjs';
     InvalidPermissionComponent,
     InternalErrorComponent,
     NotFoundComponent,
+    OrderComponent,
+    DialogOrderInfoComponent,
   ],
   imports: [
     BrowserModule,
@@ -138,6 +150,10 @@ import 'hammerjs';
     MatTooltipModule,
     ChartsModule,
     MatButtonToggleModule,
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    AngularFireMessagingModule,
+    AngularFireModule.initializeApp(environment.firebase),
   ],
   providers: [
     CurrencyPipe,
@@ -153,10 +169,12 @@ import 'hammerjs';
     SalonService,
     ProductService,
     ServiceService,
+    OrderService,
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
     BookingService,
     AuthAdminService,
     AuthManagerService,
+    MessagingService
   ],
   bootstrap: [AppComponent]
 })

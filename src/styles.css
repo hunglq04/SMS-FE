@@ -49,11 +49,11 @@ body {
 }
 
 .cancel.k-event {
-    background-color: steelblue !important;
+    background-color: #f44336 !important;
 }
 
 .waiting.k-event {
-    background-color: #f44336 !important;
+    background-color: #ffc107 !important;
 }
 
 .in_progress.k-event {

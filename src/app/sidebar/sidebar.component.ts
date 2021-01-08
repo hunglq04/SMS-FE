@@ -18,6 +18,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/booking', title: 'Lịch đặt',  icon:'library_books', class: '', roles: [environment.ROLE_ADMIN, environment.ROLE_MANAGER, environment.ROLE_CASHIER] },
     { path: '/product', title: 'Sản phẩm',  icon:'shopping_bag', class: '', roles: [environment.ROLE_ADMIN, environment.ROLE_MANAGER] },
     { path: '/service', title: 'Dịch vụ',  icon:'bubble_chart', class: '', roles: [environment.ROLE_ADMIN, environment.ROLE_MANAGER] },
+    { path: '/order', title: 'Đơn hàng',  icon:'library_books', class: '', roles: [environment.ROLE_ADMIN, environment.ROLE_MANAGER] },
     { path: '/schedule', title: 'Lịch làm việc',  icon:'date_range', class: '', roles: [environment.ROLE_STYLIST] },
     // { path: '/notifications', title: 'Khách hàng',  icon:'notifications', class: '', roles: [environment.R] },
 ];

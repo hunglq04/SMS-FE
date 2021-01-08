@@ -1,12 +1,6 @@
-export const environment = {
-  production: true,
-  baseUrl: 'https://sms-be.herokuapp.com/api',
-  internalApiUrl: 'https://sms-be.herokuapp.com/api/internal',
-  ROLE_ADMIN: 'ROLE_ADMIN',
-  ROLE_MANAGER: 'ROLE_MANAGER',
-  ROLE_CASHIER: 'ROLE_CASHIER',
-  ROLE_STYLIST: 'ROLE_STYLIST',
-  firebase: {
+importScripts('https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js');
+importScripts('https://www.gstatic.com/firebasejs/8.2.1/firebase-messaging.js');
+firebase.initializeApp({
     apiKey: "AIzaSyAl3s_hpG7tW4fXHOaGB67AaW-cdIw-vAg",
     authDomain: "sms-fe.firebaseapp.com",
     databaseURL: "https://sms-fe.firebaseio.com",
@@ -15,6 +9,5 @@ export const environment = {
     messagingSenderId: "873499124708",
     appId: "1:873499124708:web:efb933c8313929b2131df1",
     measurementId: "G-35BFF1GZBJ"
-  },
-  pageSize: 10,
-};
+});
+const messaging = firebase.messaging();

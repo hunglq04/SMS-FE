@@ -1,1 +1,66 @@
-<p>dialog-new-service works!</p>
+<button class="close text-right" mat-button mat-dialog-close>
+  <i class="material-icons">close</i>
+</button>
+<h2 mat-dialog-title>{{dialogTitle}}</h2>
+<mat-dialog-content>
+    <div *ngIf="errorMessage" class="alert alert-danger">
+        {{errorMessage}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <form [formGroup]="serviceForm">
+        <div class="row ">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Loại dịch vụ</label>
+                    <input type="text" placeholder="Chọn loại dịch vụ" matInput [matAutocomplete]="auto" class="form-control" formControlName="serviceType">
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                        <mat-option *ngFor="let option of filteredServiceType | async" [value]="option">
+                            {{option.name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </div>
+                <div class="form-group">
+                    <label>Tên dịch vụ</label>
+                    <input type="text" class="form-control" placeholder="Nhập tên sản phẩm" formControlName="name" />
+                </div>
+                <div class="form-group">
+                    <label>Giá tiền</label>
+                    <input type="text" class="form-control" placeholder="Nhập giá tiền" formControlName="price">
+                </div>
+                <div class="form-group">
+                    <label>Thời gian</label>
+                    <input type="text" class="form-control" placeholder="Nhập thời gian" formControlName="duration">
+                </div>
+                <div class="form-group">
+                    <label>Mô tả</label>
+                    <input type="text" class="form-control" placeholder="Nhập mô tả" formControlName="description">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Hình dịch vụ</label>
+                            <app-upload-image [isImageUrl]="data.bookingImage" (imageUrl)="getImageUrl($event)" folderImage="service/"></app-upload-image>
+                        </div>
+                        <div class="form-group">
+                            <label>Hình chi tiết dịch vụ</label>
+                            <app-upload-image [isImageUrl]="data.descriptionImage" (imageUrl)="getbookingImage($event)" folderImage="service/"></app-upload-image>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Hình dịch vụ gợi ý</label>
+                            <app-upload-image [isImageUrl]="data.bookingImage" (imageUrl)="getdescriptionImage($event)" folderImage="service/"></app-upload-image>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button (click)="saveService()" class="btn btn-primary" cdkFocusInitial>Lưu</button>
+</mat-dialog-actions>

@@ -37,7 +37,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Hình sản phẩm</label>
-                    <app-upload-image (imageUrl)="getImageUrl($event)" folderImage="product/"></app-upload-image>
+                    <app-upload-image isImageUrl="{{data.imageUrl}}" (imageUrl)="getImageUrl($event)" folderImage="product/"></app-upload-image>
                 </div>
             </div>
         </div>

@@ -13,12 +13,12 @@ export class ServiceService {
     private httpClient: HttpClient
   ) { }
 
-  getService() {
-    return this.httpClient.get<Array<Service>>(`${environment.baseUrl}/client/service/booking`)
+  getService(pageOffset, pageSize) {
+    return this.httpClient.get<Array<Service>>(`${environment.internalApiUrl}/service?pageOffset=${pageOffset}&pageSize=${pageSize}`)
       .toPromise();
   }
-  getServiceId(id) {
-    return this.httpClient.get<Array<Service>>(`${environment.baseUrl}/client/service/booking/id?id=${id}`)
+  getServiceById(id) {
+    return this.httpClient.get<Array<Service>>(`${environment.baseUrl}/client/service/booking/detail?id=${id}`)
       .toPromise();
   }
   addNewService(body) {
@@ -28,6 +28,9 @@ export class ServiceService {
   deleteService(id) {
     return this.httpClient.delete<any>(`${environment.baseUrl}/internal/service/${id}`)
       .toPromise();
+  }
+  updateService(body, id){
+    return this.httpClient.put<any>(`${environment.internalApiUrl}/service/${id}`, body).toPromise();
   }
   getServiceType() {
     return this.httpClient.get<Array<ServiceType>>(`${environment.baseUrl}/internal/servicetype`)
