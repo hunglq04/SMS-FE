@@ -18,6 +18,7 @@ export class MessagingService {
             (token) => {
                 console.log(token);
                 alert(token);
+                this.getToken();
             },
             (err) => {
                 console.error('Unable to get permission to notify.', err);
@@ -38,5 +39,27 @@ export class MessagingService {
             }
             this.currentMessage.next(payload);
         })
+    }
+
+    async getToken() {
+        let counter = 0;
+        let token = null;
+        while (counter < 3 && token == null) {
+            counter++;
+            await this.delay(3000);
+            this.angularFireMessaging.getToken.subscribe(
+                async (firebaseToken) => {
+                    token = firebaseToken;
+                    console.log("request new fcm-tok", firebaseToken)
+                },
+                (err) => {
+                    console.error('Error when getToken.', err);
+                }
+            );
+        }
+    }
+
+    delay(ms: number) {
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
 }
