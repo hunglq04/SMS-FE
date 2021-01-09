@@ -48,7 +48,7 @@ export class DialogStylistWorkingComponent implements OnInit {
   }
 
   isShowCancel(start) {
-    return (this.bookingInfo.status === 'WAITING' && start >= new Date()) || !this.showDemo;
+    return (this.bookingInfo.status === 'WAITING' && start >= new Date());
   }
 
   startProgress(bookingId) {
