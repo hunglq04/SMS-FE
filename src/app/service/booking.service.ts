@@ -37,4 +37,8 @@ export class BookingService {
     }
     return this.httpClient.post<any>(`${environment.internalApiUrl}/booking/${bookingId}/finish`, images).toPromise();
   }
+
+  cancelBooking(bookingId) {
+    return this.httpClient.post<void>(`${environment.internalApiUrl}/booking/${bookingId}/cancel`, null).toPromise();
+  }
 }

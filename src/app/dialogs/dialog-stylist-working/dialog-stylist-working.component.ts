@@ -43,7 +43,12 @@ export class DialogStylistWorkingComponent implements OnInit {
   }
 
   isShowStart(start) {
+    console.log("Check", start);
     return (this.bookingInfo.status === 'WAITING' && start <= new Date()) || this.showDemo;
+  }
+
+  isShowCancel(start) {
+    return (this.bookingInfo.status === 'WAITING' && start >= new Date()) || !this.showDemo;
   }
 
   startProgress(bookingId) {
@@ -56,6 +61,14 @@ export class DialogStylistWorkingComponent implements OnInit {
     this.bookingService.finishProgress(bookingId, this.image1, this.image2, this.image3, this.image4)
       .then(res => console.log(res))
       .catch(err => console.error(err))
+  }
+
+  cancelBooking(bookingId) {
+    if(confirm("Bạn có muốn hủy lịch")) {
+      this.bookingService.cancelBooking(bookingId)
+        .then(res => console.log(res))
+        .catch(err => console.error(err))
+    }
   }
 
 }
