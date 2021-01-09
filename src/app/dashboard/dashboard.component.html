@@ -133,6 +133,40 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-12">
+                <div class="card card-chart">
+                    <div class="card-header card-header-success">
+                        <h4 class="card-title">Doanh thu từng salon trong {{title}}</h4>
+                        <p class="card-category">
+                            <!-- <span class="text-white"><i class="fa fa-long-arrow-up"></i> 55% </span> tăng so với tuần trước</p> -->
+
+                    </div>
+                    <div class="card-body">
+                        <kendo-chart>
+                            <kendo-chart-title></kendo-chart-title>
+                            <kendo-chart-category-axis>
+                                <kendo-chart-category-axis-item [categories]="salonCat" [title]="{ text: '' }">
+                                    <kendo-chart-category-axis-item-labels [rotation]="-55">
+                                    </kendo-chart-category-axis-item-labels>
+                                </kendo-chart-category-axis-item>
+                            </kendo-chart-category-axis>
+                            <kendo-chart-legend position="bottom" orientation="horizontal">
+                            </kendo-chart-legend>
+                            <kendo-chart-series>
+                                <kendo-chart-series-item type="column" name="Doanh thu" [data]="seriesSalon">
+                                    <kendo-chart-series-item-tooltip format="Tổng tiền: {0}">
+                                    </kendo-chart-series-item-tooltip>
+                                </kendo-chart-series-item>
+                            </kendo-chart-series>
+                        </kendo-chart>
+                    </div>
+                    <div class="card-footer">
+                        <!-- <div class="stats">
+                            <i class="material-icons">access_time</i> updated 4 minutes ago
+                        </div> -->
+                    </div>
+                </div>
+            </div>
             <div class="col-md-12" *ngIf="false">
                 <div class="card card-chart">
                     <div class="card-header card-header-warning">

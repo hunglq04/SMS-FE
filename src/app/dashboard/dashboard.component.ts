@@ -23,6 +23,8 @@ export class DashboardComponent implements OnInit {
   public categories: any[] = [];
   public series1: any[] = [];
   public series1Sum: any[] = [];
+  public salonCat: any[] = [];
+  public seriesSalon: any[] = [];
   public autofit = true;
   data: any[] = []
   data1: any[] = []
@@ -60,6 +62,8 @@ export class DashboardComponent implements OnInit {
         this.customers = res.totalCustomer
         this.completedOrders = res.completedOrders
         this.newOrders = res.newOrders
+        this.salonCat = Object.keys(res.salonChart)
+        this.seriesSalon = Object.values(res.salonChart)
         Object.entries(res.topServices).forEach(el => this.data.push({
           kind: el[0], share: el[1]
         }))
